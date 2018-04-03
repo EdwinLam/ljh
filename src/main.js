@@ -5,6 +5,7 @@ import FastClick from 'fastclick'
 import App from './App'
 import {router} from './router/index'
 import { AjaxPlugin } from 'vux'
+import './assets/fonts/iconfont.css'
 Vue.use(AjaxPlugin)
 
 FastClick.attach(document.body)

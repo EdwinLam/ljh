@@ -3,11 +3,6 @@ export const appRouter = [
     path: '/login',
     name: 'login',
     component: () => import('@/components/Login')
-  },
-  {
-    path: '/',
-    name: 'HelloWorld',
-    component: () => import('@/components/HelloWorld')
   }
 ]
 
