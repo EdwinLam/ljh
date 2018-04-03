@@ -22,11 +22,10 @@
   </div>
 </template>
 <script>
-  import {XInput, Group, XButton} from 'vux'
+  import {XInput, XButton} from 'vux'
   export default {
     components: {
       XInput,
-      Group,
       XButton
     },
     mounted: function () {
@@ -69,7 +68,7 @@
   }
   .login-logo {
     text-align: center;
-    padding-bottom: 3.5rem;
+    padding-bottom: 6.5rem;
   }
   .logo {
     width: 100px;

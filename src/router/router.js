@@ -3,6 +3,11 @@ export const appRouter = [
     path: '/login',
     name: 'login',
     component: () => import('@/components/Login')
+  },
+  {
+    path: '/sceneExecute',
+    name: 'sceneExecute',
+    component: () => import('@/components/scene/SceneExecute')
   }
 ]
 
