@@ -40,6 +40,9 @@
 </script>
 
 <style lang="less">
+  .weui-btn {
+    box-shadow: 1px 1px 1px #888888;
+  }
 
   .weui-input{
     color:#ADADAB !important;
