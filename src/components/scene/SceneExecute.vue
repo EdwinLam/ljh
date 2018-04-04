@@ -1,15 +1,31 @@
+<style lang="less">
+  .weui-panel{
+    margin-top:0px !important;
+  }
+  .scene-execute-tip{
+    padding: 5px 15px 10px;
+    color: #AEAEAC;
+    font-size:10px;
+  }
+
+</style>
+
 <template>
   <div>
     <x-header title="场景编辑"></x-header>
+    <div class="scene-execute-tip">前四个场景展示在首页</div>
+    <cell :title="'电视'" is-link>
+      <i slot="icon" class="iconfont icon-sofa2"></i>
+    </cell>
     <panel :header="panelTitle" :footer="footer" :list="list" :type="type" @on-img-error="onImgError"></panel>
 
   </div>
 </template>
 <script>
-  import {XHeader, Panel} from 'vux'
+  import {XHeader, Panel, Cell } from 'vux'
   export default {
     components: {
-      XHeader, Panel
+      XHeader, Panel,Cell
     },
     methods: {
       onImgError (item, $event) {
@@ -19,7 +35,7 @@
     data () {
       return {
         panelTitle: '前四个场景展示在首页',
-        type: '1',
+        type: '3',
         list: [{
           src: 'http://somedomain.somdomain/x.jpg',
           fallbackSrc: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
@@ -49,13 +65,3 @@
   }
 </script>
 
-<style lang="less">
-  .weui-panel{
-    margin-top:0px !important;
-  }
-  .weui-panel__hd{
-    padding: 5px 15px 10px !important;
-    color: #AEAEAC !important;
-    font-size:10px !important;
-  }
-</style>
