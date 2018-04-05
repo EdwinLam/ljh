@@ -1,37 +1,45 @@
+<!--登录页面-->
 <template>
-  <div class="login-container">
-  <div class="login-items">
-    <div class="login-logo">
-      <img class="logo" src="../assets/vux_logo.png">
-      <h1> </h1>
+  <div class="login">
+    <div class="main-container">
+      <flexbox :gutter="0" orient="vertical" :justify="'center'" style="height: 100%">
+        <flexbox-item :span="6">
+          <!--logo部分-->
+          <div class="logo-container">
+            <img class="logo" src="../assets/vux_logo.png">
+            <h1></h1>
+          </div>
+          <!--表单部分-->
+          <group class="form-container">
+            <x-input title="账号" placeholder="请输入账号" class="form-input">
+              <i class="iconfont icon-wodejuhuasuan btn-icon" slot="label"></i>
+            </x-input>
+            <x-input title="密码" placeholder="请输入密码" type="password" class="form-input">
+              <i class="iconfont icon-suo btn-icon" slot="label"></i>
+            </x-input>
+            <x-button type="primary" class="login-btn weiui-btn-shadow">登&nbsp;录</x-button>
+            <div class="register-btn">注册</div>
+          </group>
+        </flexbox-item>
+      </flexbox>
     </div>
-    <div class="input-area">
-      <group style="margin-top:0.1rem">
-        <x-input title="账号" placeholder="请输入账号" class="login-input">
-          <i class="iconfont icon-wodejuhuasuan btn-icon" slot="label"></i>
-        </x-input>
-        <x-input title="密码" placeholder="请输入密码"  type="password" class="login-input">
-          <i class="iconfont icon-suo btn-icon" slot="label"></i>
-        </x-input>
-      </group>
-      <x-button type="primary" class="login-btn" @click.native="login">登&nbsp;录</x-button>
-      <div class="register-btn">注册</div>
-    </div>
-
-  </div>
   </div>
 </template>
 <script>
-  import {XInput, XButton} from 'vux'
+  import {XInput, XButton, Group, Flexbox, FlexboxItem} from 'vux'
+
   export default {
     components: {
       XInput,
-      XButton
+      XButton,
+      Group,
+      Flexbox,
+      FlexboxItem
     },
     mounted: function () {
       console.log('ok')
     },
-    data () {
+    data() {
       return {
         msg: 'Hello World!'
       }
@@ -40,62 +48,58 @@
 </script>
 
 <style lang="less">
-  .weui-btn {
-    box-shadow: 1px 1px 1px #888888;
-  }
-
-  .weui-input{
-    color:#ADADAB !important;
-  }
-  .login-input{
-    margin-top: 1rem;
-    border:1px solid #ADADAB;
-    border-radius:5px;
-  }
-  .btn-icon{
-    font-size:24px;
-    color: #ADADAB;
-    margin-right:1rem;
-  }
-  .register-btn{
-    margin-top:1rem;
-    text-align: center;
-    font-size:20px;
-    font-weight:500;
-    letter-spacing:3px;
-  }
-  .login-btn{
-    margin-top:1rem;
-    font-size:24px !important;
-    font-weight:100;
-  }
-  .login-logo {
-    text-align: center;
-    padding-bottom: 6.5rem;
-  }
-  .logo {
-    width: 100px;
-    height: 100px
-  }
-  .input-area{
-    padding-left: 5%;
-    padding-right:5%;
-  }
-
-  .weui-cells:before{
-    border-top:none !important;
-  }
-  .weui-cell{
-    padding: 9px 15px !important;
-  }
-  .login-container{
-    width: 100%;
+  @import '../css/main.less';
+  .login {
     height: 100%;
-    display: table;
-  }
-  .login-items{
-    display: table-cell;
-    vertical-align: middle;
-
+    .main-container {
+      height: 100%;
+      padding-left: 8%;
+      padding-right: 8%;
+      text-align: center;
+      /*logo部分*/
+      .logo-container {
+        text-align: center;
+        padding-bottom: 5rem;
+        .logo {
+          width: 100px;
+          height: 100px
+        }
+      }
+      /*表单部分*/
+      .form-container {
+        /*输入框*/
+        .form-input {
+          margin-top: 1rem;
+          border: .09rem solid @support-color;
+          border-radius: .4rem;
+          padding: .5rem .6rem !important;
+          .btn-icon {
+            font-size: 2rem;
+            color: #ADADAB;
+            margin-right: .5rem;
+          }
+        }
+        /*登录按钮*/
+        .login-btn{
+          margin-top: 1.2rem;
+          font-weight: 100;
+          font-size:1.8rem;
+        }
+        /*注册按钮*/
+        .register-btn {
+          margin-top: 1.4rem;
+          text-align: center;
+          font-size: 1.4rem;
+          letter-spacing: 3px;
+        }
+        /*vux组件微调*/
+        .weui-cells:before {
+          border-top: none !important;
+        }
+        .weui-cells:after{
+          border-bottom: none !important;
+        }
+      }
+    }
   }
 </style>

@@ -1,40 +1,40 @@
 <style lang="less">
-  .scene-execute-tip{
+  .scene-execute-container .scene-execute-tip{
     padding: 10px 15px 10px;
     color: #AEAEAC;
     font-size:8px;
   }
-  .scene-execute-btn{
+  .scene-execute-container .scene-execute-btn{
     color: #73BCE5 !important;
     width:6rem !important;
     font-size:14px !important;
     border-radius: 2px !important;
   }
-  .scene-execute-circle{
+  .scene-execute-container .scene-execute-circle{
     width: 4rem;
     height: 4rem;
     border-radius:50%;
     background-color: #2BA6E1;
     text-align: center;
   }
-  .scene-execute-circle .iconfont{
+  .scene-execute-container .scene-execute-circle .iconfont{
     border-radius: 50%;
     font-size:2.5rem;
     color: white;
   }
-  .weui-cell__hd{
+  .scene-execute-container .weui-cell__hd{
     padding-right:0.5rem !important;
   }
-  .vux-label{
+  .scene-execute-container .vux-label{
     font-size:14px;
     letter-spacing: 2px !important;
   }
-  .scene-execute-operate-container{
+  .scene-execute-container .scene-execute-operate-container{
     width:100%;
     position:fixed;
     bottom:5%;
   }
-  .scene-execute-operate{
+  .scene-execute-container .scene-execute-operate{
     margin-left: auto;
     margin-right: auto;
     width: 10rem;
@@ -44,27 +44,27 @@
     padding:10px 20px 10px;
     background-color: white;
   }
-  .op-item{
+  .scene-execute-container .op-item{
     line-height: 1;
     text-align: center;
   }
-  .op-item-icon{
+  .scene-execute-container .op-item-icon{
     font-weight: bold;
     color: #2BA6E1;
     font-size:24px !important;
   }
-  .op-item-desc{
+  .scene-execute-container .op-item-desc{
     font-weight: bolder;
     color:#9C9C9C !important;
     font-size:14px;
   }
-  .weui-cell__ft{
+  .scene-execute-container .weui-cell__ft{
     display: none;
   }
 </style>
 
 <template>
-  <div>
+  <div class="scene-execute-container">
     <x-header title="场景编辑"></x-header>
     <div class="scene-execute-tip">前四个场景展示在首页</div>
     <cell :title="item.name" is-link v-for="(item, index) in dataItems" :key="item.id">

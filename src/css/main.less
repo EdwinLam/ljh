@@ -1,25 +1,66 @@
+/*主色调*/
+@primary-color: #2BA6E1;
+/*辅助颜色*/
+@support-color:#ADADAB;
+/*输入框字体颜色*/
+@input-color: #ADADAB;
+/*输入框提示样式*/
+.placeholder(@rules) {
+
+  &::-webkit-input-placeholder {
+    @rules();
+  }
+  &:-moz-placeholder {
+    @rules();
+  }
+  &::-moz-placeholder {
+    @rules();
+  }
+  &:-ms-input-placeholder {
+    @rules();
+  }
+}
+.placeholder({ color: #D9D9D9; });
+//基本样式设置
+/*按钮*/
 .weui-btn_primary {
-  background-color: #2BA6E1 !important;
+  background-color: @primary-color !important;
+}
+/*输入框设置*/
+input{
+  color: @support-color !important;
+}
+/*按钮阴影*/;
+.weiui-btn-shadow {
+  box-shadow: 1px 1px 1px #888888;
+}
+
+.weiui-btn-disable {
+  background-color: #9E9EA0 !important;
 }
 
 
 
-.vux-header-title{
+.vux-header-title {
   font-weight: 100 !important;
 
 }
-.vux-header{
+
+.vux-header {
   background-color: #2BA6E1 !important;
 
 }
-.vux-header-back{
+
+.vux-header-back {
   font-weight: 100 !important;
-  font-size:18px !important;
+  font-size: 18px !important;
   color: white !important;
 }
-.vux-header .vux-header-left .left-arrow{
+
+.vux-header .vux-header-left .left-arrow {
   color: white !important;
 }
+
 .vux-header .vux-header-left .left-arrow:before {
   border: 1px solid white !important;
   border-width: 1px 0 0 1px !important;
@@ -28,3 +69,6 @@
   top: 5px !important;
   left: 2px !important;
 }
+
+
+

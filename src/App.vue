@@ -16,7 +16,7 @@ export default {
 body {
   background-color: #ffffff;
 }
-html,body{height:100%}
+html,body{height:100%;}
   #app{
     height:100%
   }
