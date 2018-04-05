@@ -11,13 +11,17 @@
           </div>
           <!--表单部分-->
           <group class="form-container">
-            <x-input title="账号" placeholder="请输入账号" class="form-input">
+            <!--账号-->
+            <x-input title="账号" placeholder="请输入账号" class="input-item">
               <i class="iconfont icon-wodejuhuasuan btn-icon" slot="label"></i>
             </x-input>
-            <x-input title="密码" placeholder="请输入密码" type="password" class="form-input">
+            <!--密码-->
+            <x-input title="密码" placeholder="请输入密码" type="password" class="input-item">
               <i class="iconfont icon-suo btn-icon" slot="label"></i>
             </x-input>
-            <x-button type="primary" class="login-btn weiui-btn-shadow">登&nbsp;录</x-button>
+            <!--登录-->
+            <x-button type="primary" class="login-btn">登&nbsp;录</x-button>
+            <!--注册-->
             <div class="register-btn">注册</div>
           </group>
         </flexbox-item>
@@ -39,7 +43,7 @@
     mounted: function () {
       console.log('ok')
     },
-    data() {
+    data () {
       return {
         msg: 'Hello World!'
       }
@@ -68,22 +72,19 @@
       /*表单部分*/
       .form-container {
         /*输入框*/
-        .form-input {
+        .input-item {
+          .weiui-input;
           margin-top: 1rem;
-          border: .09rem solid @support-color;
-          border-radius: .4rem;
-          padding: .5rem .6rem !important;
           .btn-icon {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #ADADAB;
             margin-right: .5rem;
           }
         }
-        /*登录按钮*/
         .login-btn{
           margin-top: 1.2rem;
-          font-weight: 100;
-          font-size:1.8rem;
+          font-size:1.6rem !important;
+          .weiui-btn;
         }
         /*注册按钮*/
         .register-btn {

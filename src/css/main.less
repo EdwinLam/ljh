@@ -20,19 +20,31 @@
     @rules();
   }
 }
-.placeholder({ color: #D9D9D9; });
+.placeholder({ color: #d3d3d3; });
+
+//预置样式
+/*输入框*/
+.weiui-input{
+  border: .09rem solid @support-color;
+  border-radius: .4rem;
+  padding: .6rem .6rem !important;
+  font-size: 1.2rem;
+}
+
+/*按钮*/
+.weiui-btn{
+  box-shadow: 1px 1px 1px #888888;
+  font-weight: 100;
+  background-color: @primary-color !important;
+}
+
 //基本样式设置
 /*按钮*/
 .weui-btn_primary {
-  background-color: @primary-color !important;
 }
 /*输入框设置*/
 input{
   color: @support-color !important;
-}
-/*按钮阴影*/;
-.weiui-btn-shadow {
-  box-shadow: 1px 1px 1px #888888;
 }
 
 .weiui-btn-disable {
