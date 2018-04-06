@@ -12,10 +12,10 @@
           </group>
         </flexbox-item>
         <flexbox-item :span="4">
-          <x-button type="primary" class="weiui-btn-shadow resend">重新获取(60)</x-button>
+          <x-button type="primary" class="resend">重新获取(60)</x-button>
         </flexbox-item>
       </flexbox>
-      <x-button type="primary" class="ok-btn weiui-btn-shadow" style="">确定</x-button>
+      <x-button type="primary" class="ok-btn" style="">确定</x-button>
     </div>
   </div>
 </template>
@@ -51,9 +51,10 @@
       /*提示语*/
       .message-tip {
         text-align: center;
-        padding: 30px 15px 40px;
-        color: @support-color;
-        font-size: 12px;
+        padding-top: 1.4rem;
+        padding-bottom:3rem;
+        color: gray;
+        font-size: .6rem;
         /*号码*/
         .phone {
           color: @primary-color;
@@ -64,24 +65,21 @@
       .input-area {
         width: 100%;
         .account-input {
-          width: 94%;
-          border: 1px solid @support-color;
-          border-radius: 5px;
-          font-size: 20px !important;
-          font-weight: 100;
+          width:100%;
+          .weiui-input;
         }
         .resend {
-          font-weight: 100;
-          padding: .4rem .1rem .4rem;
-          font-size: 1.1rem;
+          .weiui-btn;
+          padding: .3rem .1rem .3rem !important;
         }
       }
       /*确定按钮*/
       .ok-btn {
+        .weiui-btn;
         background-color: #9E9EA0 !important;
         margin-top: 0.5rem;
-        font-size: 20px !important;
         padding: .2rem;
+        font-weight: 500;
       }
     }
   }

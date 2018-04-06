@@ -15,7 +15,9 @@ export default {
 @import './css/main.less';
 body {
   background-color: #ffffff;
+  -webkit-text-size-adjust:none;
 }
+
 html,body{height:100%;}
   #app{
     height:100%

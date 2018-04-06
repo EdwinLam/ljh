@@ -5,11 +5,10 @@
     .main-container{
       padding-left:1.5rem;
       padding-right:1.5rem;
-      height: 100%;
+      height: auto;
       /*表单部分*/
       .form-container{
         margin-top: 2rem;
-        /*手机号码/邮箱*/
         .input-item{
           margin-top:1rem;
           .weiui-input;
@@ -24,11 +23,11 @@
           }
         }
         .next-step-btn{
-         padding-top:.5rem !important;
+          .weiui-btn;
+          padding-top:.5rem !important;
           padding-bottom:.5rem !important;
           margin-top:1.2rem;
           font-size:1.4rem !important;
-          .weiui-btn;
         }
       }
     }

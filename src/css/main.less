@@ -4,6 +4,10 @@
 @support-color:#ADADAB;
 /*输入框字体颜色*/
 @input-color: #ADADAB;
+/*阴影文字*/
+@shadow-color:#F6F6F6;
+/*描述背景*/
+@desc-color:#F7F7F7;
 /*输入框提示样式*/
 .placeholder(@rules) {
 
@@ -36,6 +40,20 @@
   box-shadow: 1px 1px 1px #888888;
   font-weight: 100;
   background-color: @primary-color !important;
+}
+
+/*圆形图标背景*/
+.circle-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius:50%;
+  background-color: #2BA6E1;
+  text-align: center;
+  .iconfont {
+    border-radius: 50%;
+    font-size: 2.5rem;
+    color: white;
+  }
 }
 
 //基本样式设置

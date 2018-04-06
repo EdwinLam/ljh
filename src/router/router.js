@@ -30,10 +30,16 @@ export const appRouter = [
     component: () => import('@/components/device/AddDeviceByManual')
   },
   {
+    path: '/sceneExecuteEdit',
+    name: 'SceneExecuteEdit',
+    component: () => import('@/components/scene/SceneExecuteEdit')
+  },
+  {
     path: '/',
     name: 'home',
-    component: () => import('@/components/device/AddDeviceByQRCode')
+    component: () => import('@/components/scene/SceneExecuteEdit')
   }
+
 ]
 
 // 所有上面定义的路由都要写在下面的routers里
