@@ -101,10 +101,9 @@
     <div class="content-container">
       <group>
         <cell :title="'设备名称'" is-link :value="'卧室/床头柜/插座'"></cell>
-        <x-switch title="设备状态"></x-switch>
-        <cell :title="'电量(度)'" :value="'20'"></cell>
-        <cell :title="'设备编辑'" is-link></cell>
-        <cell :title="'使用场景'" :value="'卧室'" is-link></cell>
+        <cell :title="'设备ID'" :value="'SSSSS8888'"></cell>
+        <cell :title="'功率'" :value="'10A'" is-link></cell>
+        <cell :title="'关于设备'"  is-link></cell>
       </group>
     </div>
 

@@ -55,6 +55,31 @@ export const appRouter = [
     component: () => import('@/components/device/DeviceEdit')
   },
   {
+    path: '/deviceScene',
+    name: 'DeviceScene',
+    component: () => import('@/components/device/DeviceScene')
+  },
+  {
+    path: '/personInfo',
+    name: 'PersonInfo',
+    component: () => import('@/components/my/PersonInfo')
+  },
+  {
+    path: '/personInfoSet',
+    name: 'PersonInfoSet',
+    component: () => import('@/components/my/personInfoSet')
+  },
+  {
+    path: '/index',
+    name: 'Index',
+    component: () => import('@/components/Index')
+  },
+  {
+    path: '/ad',
+    name: 'Ad',
+    component: () => import('@/components/Ad')
+  },
+  {
     path: '/',
     name: 'home',
     component: () => import('@/components/device/DeviceList')

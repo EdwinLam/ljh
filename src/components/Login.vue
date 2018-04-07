@@ -27,15 +27,13 @@
   </div>
 </template>
 <script>
-  import {XInput, XButton, Group, Flexbox, FlexboxItem} from 'vux'
+  import {XInput, XButton, Group} from 'vux'
 
   export default {
     components: {
       XInput,
       XButton,
-      Group,
-      Flexbox,
-      FlexboxItem
+      Group
     },
     mounted: function () {
       console.log('ok')
