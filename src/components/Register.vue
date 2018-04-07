@@ -50,12 +50,13 @@
   </div>
 </template>
 <script>
-  import {XInput, XButton, XHeader} from 'vux'
+  import {XInput, XButton, XHeader, Group} from 'vux'
   export default {
     components: {
       XInput,
       XButton,
-      XHeader
+      XHeader,
+      Group
     },
     mounted: function () {
       console.log('ok')

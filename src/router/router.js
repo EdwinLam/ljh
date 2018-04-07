@@ -7,7 +7,7 @@ export const appRouter = [
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/components/register')
+    component: () => import('@/components/Register')
   },
   {
     path: '/sceneExecute',
@@ -17,7 +17,7 @@ export const appRouter = [
   {
     path: '/verification',
     name: 'verification',
-    component: () => import('@/components/verification')
+    component: () => import('@/components/Verification')
   },
   {
     path: '/addDeviceByQRCode',
@@ -35,9 +35,29 @@ export const appRouter = [
     component: () => import('@/components/scene/SceneExecuteEdit')
   },
   {
+    path: '/sceneExecuteSelect',
+    name: 'SceneExecuteSelect',
+    component: () => import('@/components/scene/SceneExecuteSelect')
+  },
+  {
+    path: '/deviceList',
+    name: 'DeviceList',
+    component: () => import('@/components/device/DeviceList')
+  },
+  {
+    path: '/deviceView',
+    name: 'DeviceView',
+    component: () => import('@/components/device/DeviceView')
+  },
+  {
+    path: '/deviceEdit',
+    name: 'DeviceEdit',
+    component: () => import('@/components/device/DeviceEdit')
+  },
+  {
     path: '/',
     name: 'home',
-    component: () => import('@/components/scene/SceneExecuteEdit')
+    component: () => import('@/components/device/DeviceList')
   }
 
 ]
