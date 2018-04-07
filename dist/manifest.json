@@ -1,4 +1,4 @@
-﻿{
+{
     "@platforms": ["android", "iPhone", "iPad"],
     "id": "H5A2CBE49",/*应用的标识，创建应用时自动生成，勿手动修改*/
     "name": "dist",/*应用名称，程序桌面图标名称*/
@@ -144,7 +144,9 @@
 					"/static/js/manifest.1ff5307d65ba75557212.js",
 					"/static/js/app.a1ef658f4be2bfa4ca20.js",
 					"/static/js/manifest.57d671f7ae01abeb83e1.js",
-					"/static/js/app.8a267957b82168843b55.js"
+					"/static/js/app.8a267957b82168843b55.js",
+					"static/js/vendor.a33a087bca264586fe30.js",
+					"static/css/app.2ef5c63820dfe67488ff25eea824791c.css"
 				],
 				"refer": [],
 				"priority": 0

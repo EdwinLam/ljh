@@ -84,13 +84,12 @@ export const appRouter = [
         path: 'personInfo',
         name: 'PersonInfo',
         component: () => import('@/components/my/PersonInfo')
-      },
+      }
     ]
   },
   {
     path: '/',
-    name: 'home',
-    component: () => import('@/components/Index')
+    redirect: '/main/index'
   }
 
 ]
