@@ -1,47 +1,7 @@
 <style lang="less">
   @import '../../css/main.less';
-
-  .ljh-dots {
-      z-index: 9999;
-      a{
-        margin-left:.7rem !important;
-      }
-      .vux-icon-dot.active{
-        background-color: #717372 !important;
-      }
-      .vux-icon-dot {
-        width: .65rem !important;
-        height: .65rem !important;
-        border-radius: 1rem !important;
-        background-color: #DBDBDB !important;
-      }
-  }
-
   .device-view {
     height: 100%;
-    .vux-tab-container,.vux-tab-warp,.vux-tab{
-      height: 3.5rem !important;
-    }
-    .vux-tab-warp{
-    }
-    .vux-tab {
-      background-color: @primary-color;
-      .vux-tab-item {
-        font-size: 1.2rem !important;
-      }
-    }
-    .swiper-container {
-      .arrow-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        position: absolute;
-        z-index: 9999;
-        justify-content: space-between;
-        align-items: center;
-        fill: #717372;
-      }
-    }
     .content-container{
       .weui-switch:checked {
         border-color: #04BE02;
@@ -91,13 +51,8 @@
 <template>
   <div class="device-view">
     <x-header title="设备编辑"></x-header>
-    <swiper :list="swiperItems" v-model="swiperIndex" :show-desc-mask="showDescMask" style="width:100%;" height="16rem" dots-class="ljh-dots" dots-position="center"
-            class="swiper-container">
-      <div class="arrow-container">
-        <x-icon type="ios-arrow-left" size="60" @click="pre"></x-icon>
-        <x-icon type="ios-arrow-right" size="60" @click="next"></x-icon>
-      </div>
-    </swiper>
+    <DeviceSwiper :list="testItems"></DeviceSwiper>
+
     <div class="content-container">
       <group>
         <cell :title="'设备名称'" is-link :value="'卧室/床头柜/插座'"></cell>
@@ -112,7 +67,7 @@
 </template>
 <script>
   import {Tab, TabItem, XHeader, Group, Cell, XSwitch} from 'vux'
-  import {Swiper} from '../common/swiper'
+  import {DeviceSwiper} from '../common'
 
   const imgList = [
     'http://placeholder.qiniudn.com/800x300/ffffff',
@@ -128,24 +83,13 @@
 
   export default {
     components: {
-      Tab, TabItem, Swiper, XHeader, Group, Cell, XSwitch
+      Tab, TabItem, XHeader, Group, Cell, XSwitch, DeviceSwiper
     },
     methods: {
-      next () {
-        this.swiperIndex = this.swiperIndex >= this.swiperItems.length - 1 ? 0 : this.swiperIndex + 1
-      },
-      pre () {
-        this.swiperIndex = this.swiperIndex <= 0 ? this.swiperItems.length - 1 : this.swiperIndex - 1
-      },
-      onImgError (item, $event) {
-        console.log(item, $event)
-      }
     },
     data () {
       return {
-        showDescMask: false,
-        swiperIndex: 0,
-        swiperItems: demoList,
+        testItems: demoList,
         tabColor: 'white',
         dataItems: [
           {id: 1, name: '客厅 ', icon: 'icon-sofa2'},

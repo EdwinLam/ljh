@@ -1,22 +1,5 @@
 <style lang="less">
   @import '../../css/main.less';
-
-  .ljh-dots {
-      z-index: 9999;
-      a{
-        margin-left:.7rem !important;
-      }
-      .vux-icon-dot.active{
-        background-color: #717372 !important;
-      }
-      .vux-icon-dot {
-        width: .65rem !important;
-        height: .65rem !important;
-        border-radius: 1rem !important;
-        background-color: #DBDBDB !important;
-      }
-  }
-
   .device-view {
     height: 100%;
     .vux-tab-container,.vux-tab-warp,.vux-tab{

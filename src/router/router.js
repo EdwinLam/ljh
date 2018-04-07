@@ -40,11 +40,6 @@ export const appRouter = [
     component: () => import('@/components/scene/SceneExecuteSelect')
   },
   {
-    path: '/deviceList',
-    name: 'DeviceList',
-    component: () => import('@/components/device/DeviceList')
-  },
-  {
     path: '/deviceView',
     name: 'DeviceView',
     component: () => import('@/components/device/DeviceView')
@@ -59,20 +54,11 @@ export const appRouter = [
     name: 'DeviceScene',
     component: () => import('@/components/device/DeviceScene')
   },
-  {
-    path: '/personInfo',
-    name: 'PersonInfo',
-    component: () => import('@/components/my/PersonInfo')
-  },
+
   {
     path: '/personInfoSet',
     name: 'PersonInfoSet',
     component: () => import('@/components/my/personInfoSet')
-  },
-  {
-    path: '/index',
-    name: 'Index',
-    component: () => import('@/components/Index')
   },
   {
     path: '/ad',
@@ -80,9 +66,31 @@ export const appRouter = [
     component: () => import('@/components/Ad')
   },
   {
+    path: '/main',
+    name: 'Main',
+    component: () => import('@/components/Main'),
+    children: [
+      {
+        path: 'index',
+        name: 'Index',
+        component: () => import('@/components/Index')
+      },
+      {
+        path: 'device',
+        name: 'Device',
+        component: () => import('@/components/device/DeviceList')
+      },
+      {
+        path: 'personInfo',
+        name: 'PersonInfo',
+        component: () => import('@/components/my/PersonInfo')
+      },
+    ]
+  },
+  {
     path: '/',
     name: 'home',
-    component: () => import('@/components/device/DeviceList')
+    component: () => import('@/components/Index')
   }
 
 ]
