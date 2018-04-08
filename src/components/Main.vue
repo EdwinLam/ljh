@@ -7,10 +7,10 @@
 
 <template>
   <div class="main">
-      <tab :bar-active-color="tabColor" :active-color="tabColor" :default-color="tabColor" @on-index-change="onItemClick" v-model="tabIndex">
-        <tab-item selected>联家</tab-item>
-        <tab-item>设备</tab-item>
-        <tab-item>我的</tab-item>
+      <tab :bar-active-color="tabColor" :active-color="tabColor" :default-color="tabColor" v-model="tabIndex">
+        <tab-item @on-item-click="onItemClick">联家</tab-item>
+        <tab-item @on-item-click="onItemClick">设备</tab-item>
+        <tab-item @on-item-click="onItemClick">我的</tab-item>
       </tab>
       <router-view></router-view>
     </div>
@@ -20,24 +20,19 @@
 
   export default {
     created () {
-
-      setTimeout(() => {
-        this.module.forEach((item) => {
-          if (item.name === this.$route.name) {
-            this.tabIndex = item.value
-          }
-        })
-        this.isInit = false
-      }, 100)
+      this.module.forEach((item) => {
+        if (item.name === this.$route.name) {
+          this.tabIndex = item.value
+        }
+      })
+      console.log(this.tabIndex)
     },
     components: {
       Tab, TabItem
     },
     methods: {
       onItemClick (index) {
-        if (!this.isInit) {
           this.$router.push({name: this.module[index].name})
-        }
       }
     },
     data () {
