@@ -36,7 +36,7 @@
             <cell :title="'类型'" value="123"></cell>
             <cell :title="'开关状态'"></cell>
             <cell :title="'电量(度)'" value="0"></cell>
-            <x-switch title="设置开关" value="OFF"></x-switch>
+            <x-button plain class="item-btn">开关</x-button>
             <x-button plain class="item-btn">读取电量</x-button>
             <x-button plain class="item-btn">定时设置</x-button>
           </group>
@@ -49,7 +49,7 @@
           <cell :title="'开关状态'"></cell>
           <cell :title="'类型'"></cell>
           <cell :title="'电量(度)'"></cell>
-          <x-switch title="设置开关" value="OFF"></x-switch>
+          <x-button plain class="item-btn">开关</x-button>
           <x-button plain class="item-btn">读取电量</x-button>
           <x-button plain class="item-btn">定时设置</x-button>
         </group>
