@@ -8,9 +8,6 @@
 <script>
   import { Loading } from 'vux'
   import { mapState } from 'vuex'
-  console.log(...mapState({
-    isLoading: state => state.app.isLoading
-  }))
   export default {
     name: 'app',
     components: {

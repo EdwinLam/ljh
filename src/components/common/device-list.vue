@@ -15,11 +15,8 @@
           height: 1px;
           border-top: .1rem solid #D9D9D9;
           color: #D9D9D9;
-          -webkit-transform-origin: 0 0;
           transform-origin: 0 0;
-          -webkit-transform: scaleY(0.5);
           transform: scaleY(0.5);
-
         }
         .items {
           padding-top: .5rem;
@@ -74,7 +71,6 @@
             border-width: 0.12rem 0.12rem 0 0;
             border-color: #C8C8CD;
             border-style: solid;
-            -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
             transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
             position: relative;
             top: -0.12rem;
