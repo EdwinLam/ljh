@@ -25,7 +25,6 @@
           this.tabIndex = item.value
         }
       })
-      console.log(this.tabIndex)
     },
     components: {
       Tab, TabItem
