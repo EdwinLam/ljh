@@ -5,7 +5,7 @@
         <flexbox-item :span="6">
 
           <div class="logo-container">
-            <img class="logo" src="../assets/vux_logo.png">
+            <img class="logo" src="../assets/logo.png">
             <h1></h1>
           </div>
 
@@ -27,13 +27,15 @@
   </div>
 </template>
 <script>
-  import {XInput, XButton, Group} from 'vux'
+  import {XInput, XButton, Group, Flexbox, FlexboxItem} from 'vux'
 
   export default {
     components: {
       XInput,
       XButton,
-      Group
+      Group,
+      Flexbox,
+      FlexboxItem
     },
     mounted: function () {
       console.log('ok')
@@ -60,8 +62,7 @@
         text-align: center;
         padding-bottom: 5rem;
         .logo {
-          width: 100px;
-          height: 100px
+          width: 150px;
         }
       }
       /*表单部分*/

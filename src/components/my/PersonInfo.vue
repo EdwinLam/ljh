@@ -2,7 +2,8 @@
   @import '../../css/main.less';
 
   .person-info {
-    height: 100%;
+    margin-top: 2rem;
+    height: 70%;
     .vux-tab-container,.vux-tab-warp,.vux-tab{
       height: 3.5rem !important;
     }

@@ -1,20 +1,34 @@
 <style lang="less">
   @import '../../css/main.less';
   .scene-container {
+    margin-top:1rem;
+    margin-bottom:.2rem;
     padding-left: .3rem;
     padding-right: .3rem;
     display: flex;
+    justify-content: space-between;
     .item {
       text-align: center;
       flex: 0 0 100/5%;
       .title {
-        color: @support-color;
+        margin-top:.3rem;
+        color: #666666;
         text-align: center;
         font-size: .8rem;
       }
       .icon {
         margin: auto;
-        .circle-icon;
+        width: 3.5rem;
+        height: 3.5rem;
+        line-height: 3.5rem;
+        border-radius:50%;
+        background-color: #2BA6E1;
+        text-align: center;
+        .iconfont {
+          border-radius: 50%;
+          font-size: 2rem;
+          color: white;
+        }
       }
     }
   }

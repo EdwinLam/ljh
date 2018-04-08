@@ -1,16 +1,16 @@
 {
-	"index.html": {
-		"resources": [
-			"/static/js/vendor.051dcda900d03cfe9064.js",
-			"/static/css/app.ea44ecbfe34c1d7ce38640ae0f8671cb.css",
-			"/static/js/app.a84ffce6386c4f42daa9.js",
-			"/static/js/manifest.1ff5307d65ba75557212.js",
-			"/static/js/app.a1ef658f4be2bfa4ca20.js",
-			"/static/js/manifest.57d671f7ae01abeb83e1.js",
-			"/static/js/app.8a267957b82168843b55.js",
-			"static/js/vendor.a33a087bca264586fe30.js",
-			"static/css/app.2ef5c63820dfe67488ff25eea824791c.css"
-		],
-		"refer": []
-	}
+  "index.html": {
+    "resources": [
+      "/static/js/vendor.051dcda900d03cfe9064.js",
+      "/static/css/app.ea44ecbfe34c1d7ce38640ae0f8671cb.css",
+      "/static/js/app.a84ffce6386c4f42daa9.js",
+      "/static/js/manifest.1ff5307d65ba75557212.js",
+      "/static/js/app.a1ef658f4be2bfa4ca20.js",
+      "/static/js/manifest.57d671f7ae01abeb83e1.js",
+      "/static/js/app.8a267957b82168843b55.js",
+      "static/js/vendor.a33a087bca264586fe30.js",
+      "static/css/app.2ef5c63820dfe67488ff25eea824791c.css"
+    ],
+    "refer": []
+  }
 }

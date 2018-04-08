@@ -4,7 +4,7 @@
       display: -webkit-box;
       webkit-box-orient: vertical;
       flex-direction: column ;
-      height: 88%;
+      height: 92%;
     }
 </style>
 
@@ -13,7 +13,7 @@
       <device-swiper :list="testItems"></device-swiper>
       <scene-list :list="dataItems"></scene-list>
       <device-list :list="dataItems"></device-list>
-      <operate-menu :list="operateMenuItems"></operate-menu>
+      <!--<operate-menu :list="operateMenuItems"></operate-menu>-->
     </div>
 </template>
 <script>
@@ -49,7 +49,7 @@
           {id: 2, name: '餐厅 ', icon: 'icon-canzhuo'},
           {id: 3, name: '厨房 ', icon: 'icon-chufangwujinanzhuang'},
           {id: 4, name: '洗手间 ', icon: 'icon-hekriconqingjingyushicesuo'},
-          {id: 5, name: '自定义场景 ', icon: 'icon-star'}
+          {id: 5, name: '更多 ', icon: 'icon-star'}
         ]
       }
     }
