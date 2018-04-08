@@ -1,11 +1,7 @@
 <style lang="less">
   @import '../../css/main.less';
       .list {
-        padding:.1rem .6rem .6rem 1rem;
         position:relative;
-        flex:1;
-        overflow:auto;
-        -webkit-overflow-scrolling:touch;
         .items:before {
           content: " ";
           position: absolute;
@@ -25,18 +21,16 @@
           align-items: center;
           display: flex;
           .image-area {
-            flex-shrink: 0;
             border: .09rem solid #EBEBEB;
             overflow: hidden;
             img {
-              width: 5rem;
+              width: 6rem;
             }
-            width: 5rem;
-            height: 5rem;
+            width: 6rem;
+            height: 6rem;
             margin-right: 0.75rem;
           }
           .content-area {
-            flex-shrink: 0;
             align-self: stretch;
             color: @support-color;
             flex: 1;
@@ -98,10 +92,8 @@
           <p>无线网格: 802.11</p>
           <p>自动配网:LJH smart lik</p>
           <span>协议:<span class="protocol">LJHSL 1.0</span></span>
-
         </div>
       </div>
-      <span class="btn-area" v-show="isShowBtn"></span>
     </div>
   </div>
 </template>

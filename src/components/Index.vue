@@ -1,24 +1,61 @@
 <style lang="less">
   @import '../css/main.less';
     .index {
-      display: -webkit-box;
-      webkit-box-orient: vertical;
-      flex-direction: column ;
-      height: 92%;
+      /*幻灯片设置*/
+      .ljh-dots {
+        z-index: 9999;
+        a{
+          margin-left:.7rem !important;
+        }
+        .vux-icon-dot.active{
+          background-color: #717372 !important;
+        }
+        .vux-icon-dot {
+          width: .65rem !important;
+          height: .65rem !important;
+          border-radius: 1rem !important;
+          background-color: #DBDBDB !important;
+        }
+      }
+      .device-area-wrap{
+        background-color:#ebebeb;
+        padding: .8rem .5rem .3rem;
+        .title{
+          padding-left:.2rem;
+          padding-right:.2rem;
+          font-size:.8rem;
+          color: white;
+          background-color: @theme-color;
+          border-radius: .3rem;
+        }
+        .device-area{
+          border-radius: .1rem;
+          background-color:white;
+          padding:.4rem .5rem 1rem;
+
+        }
+      }
+
     }
 </style>
 
 <template>
     <div class="index">
-      <device-swiper :list="testItems"></device-swiper>
-      <scene-list :list="dataItems"></scene-list>
-      <device-list :list="dataItems"></device-list>
+      <swiper :list="testItems" :height="'15rem'" :show-desc-mask="false"  dots-class="ljh-dots" dots-position="center"></swiper>
+      <div class="device-area-wrap">
+      <div class="device-area">
+        <span class="title">LJH智能插座产品参数</span>
+       <device-list :list="dataItems"></device-list>
+      </div>
+      </div>
+
+      <!--<device-list :list="dataItems"></device-list>-->
       <!--<operate-menu :list="operateMenuItems"></operate-menu>-->
     </div>
 </template>
 <script>
-  import {SceneList, DeviceList, OperateMenu, DeviceSwiper} from './common'
-
+  import {Swiper, Panel, Cell } from 'vux'
+  import {DeviceList} from './common'
   const imgList = [
     'http://placeholder.qiniudn.com/800x300/ffffff',
     'http://placeholder.qiniudn.com/800x300/ffffff',
@@ -33,16 +70,12 @@
 
   export default {
     components: {
-      SceneList, DeviceList, OperateMenu, DeviceSwiper
+      Swiper, Panel, DeviceList
     },
     methods: {
     },
     data () {
       return {
-        tabColor: 'white',
-        operateMenuItems: [
-          {name: '添加设备'}
-        ],
         testItems: demoList,
         dataItems: [
           {id: 1, name: '客厅 ', icon: 'icon-sofa2'},

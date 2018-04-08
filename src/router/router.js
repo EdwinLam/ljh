@@ -78,7 +78,7 @@ export const appRouter = [
       {
         path: 'device',
         name: 'Device',
-        component: () => import('@/components/device/DeviceList')
+        component: () => import('@/components/Device')
       },
       {
         path: 'personInfo',
