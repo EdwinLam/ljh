@@ -1,7 +1,7 @@
-import DeviceList from './deviceList'
-import DeviceSwiper from './deviceSwiper'
-import OperateMenu from './operateMenu'
-import SceneList from './sceneList'
+import DeviceList from './device-list'
+import DeviceSwiper from './device-swiper'
+import OperateMenu from './operate-menu'
+import SceneList from './scene-list'
 
 export {
   DeviceList,

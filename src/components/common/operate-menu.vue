@@ -48,6 +48,7 @@
   import {Flexbox, FlexboxItem} from 'vux'
 
   export default {
+    name: 'operate-menu',
     props: {
       list: {
         type: Array,

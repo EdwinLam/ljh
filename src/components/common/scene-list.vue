@@ -34,7 +34,7 @@
 </template>
 <script>
   export default {
-    name: 'SceneList',
+    name: 'scene-list',
     props: {
       list: {
         type: Array,

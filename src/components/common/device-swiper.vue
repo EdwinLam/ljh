@@ -44,6 +44,7 @@
   import {Flexbox, FlexboxItem} from 'vux'
   import {Swiper} from './swiper'
   export default {
+    name: 'device-swiper',
     props: {
       list: {
         type: Array,

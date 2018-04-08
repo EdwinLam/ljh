@@ -111,6 +111,7 @@
 </template>
 <script>
   export default {
+    name: 'device-list',
     props: {
       list: {
         type: Array,

@@ -10,16 +10,14 @@
 
 <template>
     <div class="index">
-      <DeviceSwiper :list="testItems"></DeviceSwiper>
-      <SceneList :list="dataItems"></SceneList>
-      <DeviceList :list="dataItems"></DeviceList>
-      <OperateMenu :list="operateMenuItems"></OperateMenu>
+      <device-swiper :list="testItems"></device-swiper>
+      <scene-list :list="dataItems"></scene-list>
+      <device-list :list="dataItems"></device-list>
+      <operate-menu :list="operateMenuItems"></operate-menu>
     </div>
 </template>
 <script>
-  import {Tab, TabItem} from 'vux'
   import {SceneList, DeviceList, OperateMenu, DeviceSwiper} from './common'
-
 
   const imgList = [
     'http://placeholder.qiniudn.com/800x300/ffffff',
@@ -35,7 +33,7 @@
 
   export default {
     components: {
-      Tab, TabItem, SceneList, DeviceList, OperateMenu, DeviceSwiper
+      SceneList, DeviceList, OperateMenu, DeviceSwiper
     },
     methods: {
     },
