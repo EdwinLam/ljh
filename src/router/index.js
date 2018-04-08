@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {routers} from './router'
-
+import store from '../store'
 Vue.use(VueRouter)
 // 路由配置
 const RouterConfig = {
@@ -11,6 +11,15 @@ const RouterConfig = {
 
 export const router = new VueRouter(RouterConfig)
 
-// router.beforeEach((to, from, next) => {})
-//
-// router.afterEach((to) => {})
+let loadingTimer
+router.beforeEach((to, from, next) => {
+  loadingTimer = setTimeout(() => {
+    store.commit('updateLoadingStatus', {isLoading: true})
+  }, 1000)
+  next()
+})
+
+router.afterEach((to) => {
+  if (loadingTimer) { clearTimeout(loadingTimer) }
+  store.commit('updateLoadingStatus', {isLoading: false})
+})
