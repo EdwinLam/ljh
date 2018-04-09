@@ -35,7 +35,7 @@
               <i class="iconfont icon-suo btn-icon" slot="label">&nbsp;密码</i>
             </x-input>
             <x-input title="设备名称">
-              <i class="iconfont icon-shebeixinghao" slot="label">&nbsp;设备名称</i>
+              <i class="iconfont icon-ic_devices_other" slot="label">&nbsp;设备名称</i>
             </x-input>
             <cell title="设备id" value="123"></cell>
             <cell title="设备类型"></cell>
