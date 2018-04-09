@@ -45,11 +45,7 @@
             .detail {
               font-size: .75rem;
               .protocol{
-                margin-left: .2rem;
                 background-color: #4CD761;
-                border-radius: 1rem;
-                color: white;
-                padding:.02rem .2rem .02rem;
               }
             }
           }
@@ -91,13 +87,15 @@
           <p>无线网格: 802.11</p>
           <p>无线网格: 802.11</p>
           <p>自动配网:LJH smart lik</p>
-          <span>协议:<span class="protocol">LJHSL 1.0</span></span>
+          <span>协议:<badge text="LJHSL 1.0" class="protocol"></badge></span>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+  import {Badge} from 'vux'
+
   export default {
     name: 'device-list',
     props: {
@@ -115,6 +113,7 @@
       }
     },
     components: {
+      Badge
     },
     methods: {
       initItems () {

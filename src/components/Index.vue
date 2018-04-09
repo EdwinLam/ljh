@@ -3,7 +3,7 @@
     .index {
       /*幻灯片设置*/
       .ljh-dots {
-        z-index: 9999;
+        z-index: 99;
         a{
           margin-left:.7rem !important;
         }
@@ -21,18 +21,12 @@
         background-color:#ebebeb;
         padding: .8rem .5rem .3rem;
         .title{
-          padding-left:.2rem;
-          padding-right:.2rem;
-          font-size:.8rem;
-          color: white;
           background-color: @theme-color;
-          border-radius: .3rem;
         }
         .device-area{
           border-radius: .1rem;
           background-color:white;
           padding:.4rem .5rem 1rem;
-
         }
       }
 
@@ -44,7 +38,7 @@
       <swiper :list="testItems" :height="'15rem'" :show-desc-mask="false"  dots-class="ljh-dots" dots-position="center"></swiper>
       <div class="device-area-wrap">
       <div class="device-area">
-        <span class="title">LJH智能插座产品参数</span>
+        <badge text="LJH智能插座产品参数" class="title" ></badge>
        <device-list :list="dataItems"></device-list>
       </div>
       </div>
@@ -54,7 +48,7 @@
     </div>
 </template>
 <script>
-  import {Swiper, Panel, Cell } from 'vux'
+  import {Swiper, Panel, Badge} from 'vux'
   import {DeviceList} from './common'
   const imgList = [
     'http://placeholder.qiniudn.com/800x300/ffffff',
@@ -70,7 +64,7 @@
 
   export default {
     components: {
-      Swiper, Panel, DeviceList
+      Swiper, Panel, DeviceList, Badge
     },
     methods: {
     },
