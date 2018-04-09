@@ -35,6 +35,7 @@
 
 <template>
     <div class="index">
+
       <swiper :list="testItems" :height="'15rem'" :show-desc-mask="false"  dots-class="ljh-dots" dots-position="center"></swiper>
       <div class="device-area-wrap">
       <div class="device-area">

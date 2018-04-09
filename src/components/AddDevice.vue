@@ -1,23 +1,28 @@
 <style lang="less">
   @import '../css/main.less';
-
   .device-add {
-    margin:1rem .5rem 0rem;
-    .vux-badge {
-      background-color: @theme-color;
-    }
-    background-color: white;
-    padding: .1rem .5rem 1rem;
-    border-radius: .5rem;
-    box-shadow: .1rem .075rem 1.5rem @shadow-color;
-    .item-btn {
-      margin-top: 0rem;
-      border-radius: 0px;
-      border: none;
-      border-top: 1px solid #D9D9D9;
-    }
-    .btn-icon {
-      margin-right: 1rem;
+    .main-container{
+      background-color: white;
+      padding:1rem .5rem 1rem;
+      margin:1rem 1rem 1rem;
+      border-radius: .1rem;
+      box-shadow: .1rem .075rem 1.5rem @shadow-color;
+      .vux-badge {
+        background-color: @theme-color;
+      }
+
+
+      border-radius: .5rem;
+
+      .btn-icon {
+        margin-right: 1rem;
+      }
+      .textBtn{
+        width: 100%;
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 400;
+      }
     }
 
   }
@@ -25,6 +30,7 @@
 
 <template>
   <div class="device-add">
+    <div class="main-container">
     <group>
       <x-input title="SSID" placeholder="请输入无线网络SSID">
         <i class="iconfont icon-wifi btn-icon" slot="label">&nbsp;SSID</i>
@@ -38,10 +44,17 @@
       <cell title="设备id" value="123"></cell>
       <cell title="设备类型"></cell>
       <cell title="设备描述" value="0"></cell>
-      <x-button plain class="item-btn">刷新网络</x-button>
-      <x-button plain class="item-btn">配置设备</x-button>
-      <x-button plain class="item-btn">加入我的设备</x-button>
+      <cell class="vux-tap-active weui-cell_acces">
+        <div slot="child" class="textBtn">刷新网络</div>
+      </cell>
+      <cell class="vux-tap-active weui-cell_acces">
+        <div slot="child" class="textBtn">配置网络</div>
+      </cell>
+      <cell class="vux-tap-active weui-cell_acces">
+        <div slot="child" class="textBtn">加入我的设备</div>
+      </cell>
     </group>
+    </div>
   </div>
 </template>
 <script>

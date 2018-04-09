@@ -6,6 +6,7 @@ import App from './App'
 import {router} from './router/index'
 import store from './store'
 import { AjaxPlugin } from 'vux'
+import { sync } from 'vuex-router-sync'
 import './assets/fonts/iconfont.css'
 Vue.use(AjaxPlugin)
 
@@ -13,6 +14,7 @@ FastClick.attach(document.body)
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
+sync(store, router)
 new Vue({
   router,
   store,
