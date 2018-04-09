@@ -13,6 +13,7 @@ export const router = new VueRouter(RouterConfig)
 
 let loadingTimer
 router.beforeEach((to, from, next) => {
+  clearTimeout(loadingTimer)
   loadingTimer = setTimeout(() => {
     store.commit('updateLoadingStatus', {isLoading: true})
   }, 1000)

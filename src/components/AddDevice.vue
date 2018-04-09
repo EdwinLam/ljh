@@ -28,14 +28,14 @@
   <div class="device-add">
     <div class="main-container">
           <group>
-            <x-input>
+            <x-input title="SSID" placeholder="请输入无线网络SSID">
                 <i class="iconfont icon-wifi btn-icon" slot="label">&nbsp;SSID</i>
             </x-input>
-            <x-input type="password">
+            <x-input type="password" title="密码" placeholder="请输入密码">
               <i class="iconfont icon-suo btn-icon" slot="label">&nbsp;密码</i>
             </x-input>
-            <x-input title="设备名称">
-              <i class="iconfont icon-ic_devices_other" slot="label">&nbsp;设备名称</i>
+            <x-input title="设备名称" placeholder="请输入设备名称">
+              <i class="iconfont icon-ic_devices_other" slot="label">&nbsp;设备名称&nbsp;</i>
             </x-input>
             <cell title="设备id" value="123"></cell>
             <cell title="设备类型"></cell>
