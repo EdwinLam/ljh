@@ -75,7 +75,7 @@
 
 <template>
   <div class="list">
-    <div class="items" v-for="el in deviceItems">
+    <div class="items" v-for="el in 20">
       <div class="image-area">
         <img src="../../assets/tmp.jpg">
       </div>

@@ -53,7 +53,7 @@
       const enterTimer = window.setInterval(() => {
         if (--this.i === 0) {
           window.clearInterval(enterTimer)
-          console.log('ok')
+          this.$router.push({name: 'Index'})
         }
       }, 1000)
   },

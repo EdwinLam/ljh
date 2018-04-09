@@ -1,8 +1,8 @@
 <style lang="less">
   @import '../css/main.less';
     .about{
-      padding-top: 4rem;
-      height: 89%;
+      margin-top: 1rem;
+      height: 100%;
       /*background-color: #fbf9fe;*/
       background-color: #ebebeb;
       .vux-badge{
@@ -15,7 +15,7 @@
         }
         border-radius: .4rem;
         margin:5rem 1rem 1rem;
-        padding: 1rem 1rem 0rem;
+        padding: 1rem 1rem 1rem;
       }
     }
 </style>

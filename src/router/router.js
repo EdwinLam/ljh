@@ -94,7 +94,7 @@ export const appRouter = [
   },
   {
     path: '/',
-    redirect: '/main/index'
+    redirect: '/ad'
   }
 
 ]

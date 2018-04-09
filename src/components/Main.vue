@@ -1,6 +1,7 @@
 <style lang="less">
   @import '../css/main.less';
   .main {
+    background-color: #ebebeb;
     height: 100%;
     .tabbar-container{
       .iconfont{
@@ -18,7 +19,7 @@
 
 <template>
   <div class="main">
-    <view-box ref="viewBox">
+    <view-box ref="viewBox" body-padding-top="10%" body-padding-bottom="14%">
       <x-header slot="header" :title="curTitle" :left-options="{showBack: false}" style="width:100%;position:absolute;left:0;top:0;z-index:100;">
         <slot name="left"></slot>
       </x-header>
@@ -62,14 +63,19 @@
     methods: {
       onItemClick (index) {
         this.$router.push({name: this.module[index].name})
-        this.curTitle =  this.module[index].title
+        this.curTitle = this.module[index].title
       }
     },
     data () {
       return {
         curTitle: '',
         tabIndex: 0,
-        module: [{name: 'Index', title: '首页', value: 0}, {name: 'Device', title: '设备', value: 1}, {name: 'AddDevice', title: '增加设备', value: 2}, {name: 'About', title: '关于', value: 3}]
+        module: [
+          {name: 'Index', title: '首页', value: 0, url: '/main/index'},
+          {name: 'Device', title: '设备', value: 1, url: '/main/device'},
+          {name: 'AddDevice', title: '增加设备', value: 2, url: '/main/addDevice'},
+          {name: 'About', title: '关于', value: 3, url: '/main/about'}
+        ]
       }
     }
   }
