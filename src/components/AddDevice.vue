@@ -3,8 +3,8 @@
   .device-add {
     .main-container{
       background-color: white;
-      padding:1rem .5rem 1rem;
-      margin:1rem 1rem 1rem;
+      padding:.5rem .5rem .5rem;
+      margin:1rem .5rem 1rem;
       border-radius: .1rem;
       box-shadow: .1rem .075rem 1.5rem @shadow-color;
       .vux-badge {
@@ -12,7 +12,7 @@
       }
 
 
-      border-radius: .5rem;
+      border-radius: .1rem;
 
       .btn-icon {
         margin-right: 1rem;
