@@ -17,6 +17,9 @@
         border: none;
         border-top:1px solid #D9D9D9;
       }
+      .btn-icon{
+        margin-right: 1rem;
+      }
     }
   }
 </style>
@@ -25,10 +28,15 @@
   <div class="device-add">
     <div class="main-container">
           <group>
-            <x-input title="SSID"></x-input>
-            <x-input title="用户名"></x-input>
-            <x-input title="密码"></x-input>
-            <x-input title="设备名称"></x-input>
+            <x-input>
+                <i class="iconfont icon-wifi btn-icon" slot="label">&nbsp;SSID</i>
+            </x-input>
+            <x-input type="password">
+              <i class="iconfont icon-suo btn-icon" slot="label">&nbsp;密码</i>
+            </x-input>
+            <x-input title="设备名称">
+              <i class="iconfont icon-shebeixinghao" slot="label">&nbsp;设备名称</i>
+            </x-input>
             <cell title="设备id" value="123"></cell>
             <cell title="设备类型"></cell>
             <cell title="设备描述" value="0"></cell>
