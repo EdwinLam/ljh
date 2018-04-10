@@ -6,11 +6,10 @@
       padding:.5rem .5rem .5rem;
       margin:1rem .5rem 1rem;
       border-radius: .1rem;
-      box-shadow: .1rem .075rem 1.5rem @shadow-color;
+      box-shadow: .1rem .1rem .1rem @shadow-color;
       .vux-badge {
         background-color: @theme-color;
       }
-
 
       border-radius: .1rem;
 

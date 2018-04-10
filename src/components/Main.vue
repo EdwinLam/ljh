@@ -1,7 +1,7 @@
 <style lang="less">
   @import '../css/main.less';
   .main {
-    background-color: #ebebeb;
+    background-color: #f8f8f8;
     height: 100%;
     .tabbar-container{
       .iconfont{

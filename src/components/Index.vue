@@ -17,18 +17,6 @@
           background-color: #DBDBDB !important;
         }
       }
-      .device-area-wrap{
-        background-color:#ebebeb;
-        padding: .8rem .5rem .3rem;
-        .title{
-          background-color: @theme-color;
-        }
-        .device-area{
-          border-radius: .1rem;
-          background-color:white;
-          padding:.4rem .5rem 1rem;
-        }
-      }
 
     }
 </style>
@@ -37,12 +25,8 @@
     <div class="index">
 
       <swiper :list="testItems" :height="'15rem'" :show-desc-mask="false"  dots-class="ljh-dots" dots-position="center"></swiper>
-      <div class="device-area-wrap">
-      <div class="device-area">
-        <badge text="LJH智能插座产品参数" class="title" ></badge>
+
        <device-list :list="dataItems"></device-list>
-      </div>
-      </div>
 
       <!--<device-list :list="dataItems"></device-list>-->
       <!--<operate-menu :list="operateMenuItems"></operate-menu>-->

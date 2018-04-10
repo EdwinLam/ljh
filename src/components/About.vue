@@ -4,7 +4,6 @@
       margin-top: 1rem;
       height: 100%;
       /*background-color: #fbf9fe;*/
-      background-color: #ebebeb;
       .vux-badge{
         background-color: @theme-color;
       }

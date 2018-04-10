@@ -1,75 +1,64 @@
 <style lang="less">
   @import '../../css/main.less';
-
+  @import '~vux/src/styles/1px.less';
       .list {
-        position:relative;
-        .items:before {
-          content: " ";
-          position: absolute;
-          left: 0;
-          top: 0;
-          right: 0;
-          height: 1px;
-          border-top: .1rem solid #D9D9D9;
-          color: #D9D9D9;
-          transform-origin: 0 0;
-          transform: scaleY(0.5);
-        }
-        .items {
-          padding-top: .5rem;
-          position: relative;
-          margin-top: .5rem;
-          align-items: center;
-          display: flex;
-          .image-area {
-            border: .09rem solid #EBEBEB;
-            overflow: hidden;
-            img {
-              width: 6rem;
+        .device-area-wrap{
+          padding: 0rem .4rem 0rem;
+          .title-area{
+            height: 1.2rem;
+            line-height: 1.2rem;
+            padding:.3rem .3rem .3rem;
+            .title{
+              background-color: @theme-color;
             }
-            width: 6rem;
-            height: 6rem;
-            margin-right: 0.75rem;
           }
-          .content-area {
-            align-self: stretch;
-            color: @support-color;
-            flex: 1;
-            .deviceName {
-              color: gray;
-              white-space: nowrap;
-              width: 9rem;
+          .items:nth-child(2){
+            border-radius:0 0 .2rem .2rem;
+          }
+          .items {
+            box-shadow: .05rem .05rem .1rem #ebebeb;
+            background-color: white;
+            padding:.5rem .8rem .5rem;
+            position: relative;
+            margin-top: .4rem;
+            align-items: center;
+            display: flex;
+            border-radius: .2rem;
+            .image-area {
+              border: .09rem solid #EBEBEB;
               overflow: hidden;
-              text-overflow: ellipsis;
-              font-size: 1rem;
+              img {
+                width: 6rem;
+              }
+              width: 6rem;
+              height: 6rem;
+              margin-right: 0.75rem;
             }
-            .detail {
-              font-size: .75rem;
-              .protocol{
-                background-color: #4CD761;
+            .content-area {
+              align-self: stretch;
+              color: @support-color;
+              flex: 1;
+              .deviceName {
+                font-weight: bold;
+                color: gray;
+                white-space: nowrap;
+                width: 9rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 1rem;
+              }
+              .detail {
+                font-size: .75rem;
+                .protocol{
+                  margin-bottom: .2rem;
+                  margin-left:.2rem;
+                  background-color: #4CD761;
+                }
               }
             }
+
           }
-          .btn-area {
-            position:relative;
-            flex-shrink: 0;
-          }
-          .btn-area:after{
-            content: " ";
-            display: inline-block;
-            height: 1.8rem;
-            width: 1.8rem;
-            border-width: 0.12rem 0.12rem 0 0;
-            border-color: #C8C8CD;
-            border-style: solid;
-            transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-            position: relative;
-            top: -0.12rem;
-            position: absolute;
-            top: 50%;
-            margin-top: -1rem;
-            right: 1rem;
-          }
+
         }
       }
 </style>
@@ -77,6 +66,12 @@
 <template>
   <div class="list" >
     <scroller lock-x scrollbar-y use-pullup use-pulldown height="100%" @on-pullup-loading="loadMore" @on-pulldown-loading="refresh" v-model="status" ref="scroller">
+      <div class="device-area-wrap">
+      <div class="device-area">
+        <div class="title-area">
+          <badge text="LJH智能插座产品参数" class="title" ></badge>
+        </div>
+      </div>
       <div class="items" v-for="el in test">
         <div class="image-area">
           <img src="../../assets/tmp.jpg">
@@ -92,6 +87,7 @@
             <span>协议:<badge text="LJHSL 1.0" class="protocol"></badge></span>
           </div>
         </div>
+      </div>
       </div>
       <div slot="pulldown" class="xs-plugin-pullup-container xs-plugin-pullup-down" style="position: absolute; width: 100%; height: 40px; top: -40px; text-align: center;">
         <span v-show="status.pulldownStatus === 'default'"></span>

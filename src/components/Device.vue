@@ -24,7 +24,7 @@
       }
       background-color: white;
 
-      box-shadow: .1rem .075rem 1.5rem @shadow-color;
+      box-shadow: .1rem .1rem .1rem @shadow-color;
       .item-btn{
         margin-top: 0rem;
         border-radius: 0px;
