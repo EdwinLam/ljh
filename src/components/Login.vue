@@ -10,10 +10,10 @@
           </div>
 
           <group class="form-container">
-            <x-input title="账号" placeholder="请输入账号" class="input-item">
+            <x-input title="账号" placeholder="请输入账号" class="input-item" required>
               <i class="iconfont icon-wodejuhuasuan btn-icon" slot="label"></i>
             </x-input>
-            <x-input title="密码" placeholder="请输入密码" type="password" class="input-item">
+            <x-input title="密码" placeholder="请输入密码" type="password" class="input-item" required>
               <i class="iconfont icon-suo btn-icon" slot="label"></i>
             </x-input>
             <x-button type="primary" class="login-btn">登&nbsp;录</x-button>
@@ -36,6 +36,11 @@
       Group,
       Flexbox,
       FlexboxItem
+    },
+    methods: {
+      errorMsgShow: function () {
+
+      }
     },
     mounted: function () {
       console.log('ok')
