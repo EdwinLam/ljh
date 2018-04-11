@@ -50,7 +50,7 @@
 
 <template>
   <div class="main">
-    <view-box ref="viewBox" body-padding-top="10%" body-padding-bottom="14%">
+    <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="53px">
       <x-header slot="header" :title="title" :left-options="{showBack: false}" style="width:100%;position:absolute;left:0;top:0;z-index:100;"> <slot name="left"></slot>
       </x-header>
       <transition :name="viewTransition" :css="!!direction">

@@ -65,7 +65,7 @@
 
 <template>
   <div class="list" >
-    <scroller lock-x scrollbar-y use-pullup use-pulldown height="100%" @on-pullup-loading="loadMore" @on-pulldown-loading="refresh" v-model="status" ref="scroller">
+    <scroller lock-x scrollbar-y use-pullup use-pulldown :height="fixHeight" @on-pullup-loading="loadMore" @on-pulldown-loading="refresh" v-model="status" ref="scroller">
       <div class="device-area-wrap">
       <div class="device-area">
         <div class="title-area">
@@ -145,13 +145,22 @@
       },
       initItems () {
         this.deviceItems = this.list
+      },
+      autoList () {
+        const viewHeight = document.getElementById('vux_view_box_body').clientHeight
+        this.fixHeight = (viewHeight - 340) + 'px'
       }
     },
     mounted () {
       this.initItems()
+      this.autoList()
+      window.onresize = () => {
+        this.autoList()
+      }
     },
     data () {
       return {
+        fixHeight: '0',
         test: 10,
         status: {
           pullupStatus: 'default',

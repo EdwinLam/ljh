@@ -8,28 +8,32 @@
     .vux-badge{
       background-color: @theme-color;
     }
-    .item{
-      padding:.5rem 1rem .5rem;
-      margin: 1rem .5rem 1rem;
-      border-radius:.2rem;
-      .device-name{
-        font-size:1rem;
-        padding: .2rem .2rem;
-      }
-      .textBtn{
-        width: 100%;
-        text-align: center;
-        font-size: 1.1rem;
-        font-weight: 400;
-      }
-      background-color: white;
+    .item-wrap{
+      padding:0rem 0rem .1rem;
+      .item{
+        padding:.5rem 1rem .5rem;
+        margin: 1rem .5rem 1rem;
+        border-radius:.2rem;
+        .device-name{
+          font-size:1rem;
+          padding: .2rem .2rem;
+        }
+        .textBtn{
+          width: 100%;
+          text-align: center;
+          font-size: 1.1rem;
+          font-weight: 400;
+        }
+        background-color: white;
 
-      box-shadow: .1rem .1rem .1rem @shadow-color;
-      .item-btn{
-        margin-top: 0rem;
-        border-radius: 0px;
-        border: none;
-        border-top:1px solid #D9D9D9;
+        box-shadow: .1rem .1rem .1rem @shadow-color;
+        .item-btn{
+          margin-top: 0rem;
+          border-radius: 0px;
+          border: none;
+          border-top:1px solid #D9D9D9;
+        }
+
       }
 
     }
@@ -38,8 +42,9 @@
 
 <template>
   <div class="device">
-    <scroller lock-x scrollbar-y use-pullup use-pulldown height="100%" @on-pullup-loading="loadMore" @on-pulldown-loading="refresh" v-model="status" ref="scroller">
-      <div class="item" v-for="el in test">
+    <scroller lock-x scrollbar-y use-pullup use-pulldown :height="fixHeight" @on-pullup-loading="loadMore" @on-pulldown-loading="refresh" v-model="status" ref="scroller">
+      <div class="item-wrap">
+        <div class="item" v-for="el in test">
         <group>
           <cell :title="'设备名称'">
             <badge text="123" class="device-name"></badge>
@@ -55,13 +60,14 @@
           </cell>
         </group>
       </div>
+      </div>
 
       <div slot="pulldown" class="xs-plugin-pullup-container xs-plugin-pullup-down" style="position: absolute; width: 100%; height: 40px; top: -40px; text-align: center;">
         <span v-show="status.pulldownStatus === 'default'"></span>
         <span v-show="status.pulldownStatus === 'loading'"><spinner type="ios-small"></spinner></span>
       </div>
       <!--pullup slot-->
-      <div slot="pullup" class="xs-plugin-pullup-container xs-plugin-pullup-up" style="position: absolute; width: 100%; height: 40px; bottom: -40px; text-align: center;">
+      <div slot="pullup" class="xs-plugin-pullup-container xs-plugin-pullup-up" style="position: absolute; width: 100%; height: 40px; bottom: -20px; text-align: center;">
         <span v-show="status.pullupStatus === 'default'"></span>
         <span v-show="status.pullupStatus === 'loading'"><spinner type="ios-small"></spinner></span>
       </div>
@@ -90,7 +96,7 @@
    </div>
 </template>
 <script>
-  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, TransferDom,  Scroller, Spinner} from 'vux'
+  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, TransferDom, Scroller, Spinner} from 'vux'
   import {DeviceList} from './common'
   const imgList = [
     'http://placeholder.qiniudn.com/800x300/ffffff',
@@ -134,9 +140,20 @@
           })
         }, 2000)
       },
+      autoList () {
+        const viewHeight = document.getElementById('vux_view_box_body').clientHeight
+        this.fixHeight = (viewHeight - 100) + 'px'
+      }
+    },
+    mounted () {
+      this.autoList()
+      window.onresize = () => {
+        this.autoList()
+      }
     },
     data () {
       return {
+        fixHeight: '0',
         test: 10,
         status: {
           pullupStatus: 'default',
