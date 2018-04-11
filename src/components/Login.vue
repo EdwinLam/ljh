@@ -38,6 +38,9 @@
       FlexboxItem
     },
     methods: {
+      login: function () {
+
+      },
       errorMsgShow: function () {
 
       }

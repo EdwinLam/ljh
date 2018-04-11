@@ -35,11 +35,22 @@
 <script>
   import {Swiper, Panel, Badge} from 'vux'
   import {DeviceList} from './common'
+  import ad3 from '@/assets/ad3.jpg'
+
+  import p1 from '@/assets/product/p1.jpg'
+  import p2 from '@/assets/product/p2.jpg'
+  import p3 from '@/assets/product/p3.jpg'
+  import p4 from '@/assets/product/p4.jpg'
+  import p5 from '@/assets/product/p5.jpg'
+  import p6 from '@/assets/product/p5.jpg'
+
   const imgList = [
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff'
+    ad3,
+    p2,
+    p3,
+    p4,
+    p5,
+    p6
   ]
 
   const demoList = imgList.map((one, index) => ({

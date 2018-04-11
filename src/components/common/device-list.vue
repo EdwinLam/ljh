@@ -25,8 +25,9 @@
             display: flex;
             border-radius: .2rem;
             .image-area {
-              border: .09rem solid #EBEBEB;
               overflow: hidden;
+              display: flex;
+              align-items: center;
               img {
                 width: 6rem;
               }
@@ -72,16 +73,16 @@
           <badge text="LJH智能插座产品参数" class="title" ></badge>
         </div>
       </div>
-      <div class="items" v-for="el in test">
+      <div class="items" v-for="el in d1Items">
         <div class="image-area">
-          <img src="../../assets/tmp.jpg">
+          <img :src="el.url">
         </div>
         <div class="content-area">
-          <div class="deviceName ">ST-16A-W</div>
+          <div class="deviceName ">{{el.name}}</div>
           <div class="detail">
             <p>规格: 20*20*15</p>
-            <p>额定电流: 16A</p>
-            <p>无线网格: 802.11</p>
+            <p>额定电流: {{el.dl}}</p>
+            <p>最大功率: {{el.gl}}</p>
             <p>无线网格: 802.11</p>
             <p>自动配网:LJH smart lik</p>
             <span>协议:<badge text="LJHSL 1.0" class="protocol"></badge></span>
@@ -103,6 +104,16 @@
 </template>
 <script>
   import {Badge, Scroller, Spinner} from 'vux'
+  import p1 from '@/assets/product/p1.jpg'
+  import p2 from '@/assets/product/p2.jpg'
+  import p3 from '@/assets/product/p3.jpg'
+  import p4 from '@/assets/product/p4.jpg'
+  import p5 from '@/assets/product/p5.jpg'
+  import p6 from '@/assets/product/p6.jpg'
+  import p7 from '@/assets/product/p7.jpg'
+  import p8 from '@/assets/product/p8.jpg'
+  import p9 from '@/assets/product/p9.png'
+  import p10 from '@/assets/product/p10.png'
 
   export default {
     name: 'device-list',
@@ -166,7 +177,16 @@
           pullupStatus: 'default',
           pulldownStatus: 'default'
         },
-        deviceItems: []
+        d1Items: [
+          {url: p9, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
+          {url: p10, name: 'ST-10A-W', gl: '2500W', dl: '10A'},
+          {url: p3, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
+          {url: p4, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
+          {url: p5, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
+          {url: p6, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
+          {url: p7, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
+          {url: p8, name: 'ST-16A-W', gl: '4000W', dl: '16A'}
+        ]
       }
     }
   }
