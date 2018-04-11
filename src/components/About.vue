@@ -24,7 +24,7 @@
       <card class="card-container">
         <badge text="联家汇" slot="header" class="title"></badge>
         <group slot="content">
-          <x-img :src="testUrl"></x-img>
+          <img :src="ad4Url" style="width: 100%"></img>
           <cell title="智能插座app"></cell>
           <cell title="V1.0"></cell>
           <cell title="2018©联家汇智能科技"></cell>
@@ -34,6 +34,8 @@
 </template>
 <script>
   import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XImg, Card} from 'vux'
+  import ad4 from '@/assets/ad4.jpg'
+
   import {DeviceList} from './common'
   const imgList = [
     'http://placeholder.qiniudn.com/800x300/ffffff',
@@ -55,6 +57,7 @@
     },
     data () {
       return {
+        ad4Url: ad4,
         testUrl: 'http://placeholder.qiniudn.com/1024x768/ffffff',
         testItems: demoList,
         dataItems: [
