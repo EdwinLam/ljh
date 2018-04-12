@@ -63,7 +63,7 @@
           <x-switch title="开关状态" :inlineDesc="el.state|deviceState" class="switch-btn" on-change="el.state" :disabled="!isCanEdit(el)" v-model="el.isOn" @on-change="switchDevice(el)">
           </x-switch>
           <cell :title="'电量(度)'" :value="el.data"></cell>
-          <cell :title="'定时设置'" is-link></cell>
+          <cell :title="'定时设置'" is-link @click.native="setTask(el)"></cell>
           <cell title="设备编辑" is-link @click.native="EditItem(el)"></cell>
           <cell class="vux-tap-active weui-cell_acces" @click.native="refreshMeter(el)">
             <div slot="child" class="textBtn">读取电量</div>
@@ -123,6 +123,9 @@
         this.$store.commit('updateIncludedComponents', 'Device')
         StorageUtil.setStorage('deviceEl', el)
         this.$router.push({name: 'EditDevice'})
+      },
+      setTask (el) {
+        this.$router.push({name: 'SetTask'})
       },
       delItem (el, index) {
         console.log(index)

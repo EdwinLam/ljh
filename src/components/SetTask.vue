@@ -1,6 +1,9 @@
 <style lang="less">
   @import '../css/main.less';
-  .device-edit {
+  .set-task {
+    .pupup-btn{
+      background-color:@theme-color !important;
+    }
     .main-container{
       background-color: white;
       padding:.5rem .5rem .5rem;
@@ -29,49 +32,64 @@
 
 <template>
   <div>
-  <div class="device-edit">
-      <div class="main-container">
-    <group>
-      <x-input title="SSID" placeholder="请输入无线网络SSID">
-        <i class="iconfont icon-wifi btn-icon" slot="label">&nbsp;SSID</i>
-      </x-input>
-      <x-input type="password" title="密码" placeholder="请输入密码">
-        <i class="iconfont icon-suo btn-icon" slot="label">&nbsp;密码</i>
-      </x-input>
-      <x-input title="设备名称" placeholder="请输入设备名称">
-        <i class="iconfont icon-ic_devices_other" slot="label">&nbsp;设备名称&nbsp;</i>
-      </x-input>
-      <cell title="设备id" value="123"></cell>
-      <cell title="设备类型"></cell>
-      <cell title="设备描述" value="0"></cell>
-      <cell class="vux-tap-active weui-cell_acces">
-        <div slot="child" class="textBtn">刷新网络</div>
+  <div class="set-task">
+    <div v-transfer-dom>
+      <popup v-model="isShowSet" height="270px" is-transparent>
+        <div style="width: 95%;background-color:#fff;height:250px;margin:0 auto;border-radius:5px;padding-top:10px;">
+          <group>
+            <datetime format="HH:mm" title="开始时间" value="20:12">
+              <i class="iconfont icon-delete" slot="title" @click.stop>&nbsp;开始时间</i>
+            </datetime>
+            <datetime format="HH:mm" title="结束时间" value="20:12">
+              <i class="iconfont icon-delete" slot="title">&nbsp;开始时间</i>
+            </datetime>
+          </group>
+          <div style="padding:20px 15px;">
+            <x-button type="primary" class="pupup-btn">确认</x-button>
+            <x-button @click.native="isShowSetTime = false">取消</x-button>
+          </div>
+        </div>
+      </popup>
+    </div>
+
+    <div class="main-container">
+    <group title="定时任务">
+      <cell title="10:00-20:00" value="不重复">
+        <slot>
+          关闭
+          <i class="iconfont icon-shuaxin" ></i>
+        </slot>
+        <slot name="child"> <span class="vux-close"></span></slot>
       </cell>
-      <cell class="vux-tap-active weui-cell_acces">
-        <div slot="child" class="textBtn">配置网络</div>
-      </cell>
-      <cell class="vux-tap-active weui-cell_acces">
-        <div slot="child" class="textBtn">保存设置</div>
-      </cell>
+      <x-button @click.native="addTask">添加任务</x-button>
     </group>
     </div>
   </div>
   </div>
 </template>
 <script>
-  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader} from 'vux'
+  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader, Popup, Datetime, TransferDom} from 'vux'
 
   export default {
-    mounted () {
-      this.$store.commit('updateHeader', {title: '编辑设备', isShowBack: true})
+    directives: {
+      TransferDom
+    },
+    activated () {
+      this.$store.commit('updateHeader', {title: '定时设置', isShowBack: true})
     },
     components: {
-      Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader
+      Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader, Popup, Datetime
     },
-    // store.commit('updateLoadingStatus', {isLoading: true})
+    methods: {
+      addTask () {
+        this.isShowSet = true
+      }
+    },
 
     data () {
       return {
+        isShowSet: false
+
       }
     }
   }
