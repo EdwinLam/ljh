@@ -63,9 +63,7 @@
           <x-switch title="开关状态" :inlineDesc="el.state|deviceState" class="switch-btn" on-change="el.state" :disabled="!isCanEdit(el)" v-model="el.isOn" @on-change="switchDevice(el)">
           </x-switch>
           <cell :title="'电量(度)'" :value="el.data"></cell>
-          <cell :title="'定时设置'" >
-            <span @click="openTimeSet">11:00-22:00</span>
-          </cell>
+          <cell :title="'定时设置'" is-link></cell>
           <cell title="设备编辑" is-link @click.native="EditItem(el)"></cell>
           <cell class="vux-tap-active weui-cell_acces" @click.native="refreshMeter(el)">
             <div slot="child" class="textBtn">读取电量</div>
@@ -108,6 +106,7 @@
   import {CommonUtil, StorageUtil} from '../utils'
 
   export default {
+    name: 'Device',
     directives: {
       TransferDom
     },
@@ -121,8 +120,8 @@
     },
     methods: {
       EditItem (el) {
+        this.$store.commit('updateIncludedComponents', 'Device')
         StorageUtil.setStorage('deviceEl', el)
-        this.$store.commit('updateDeviceScrollTopStyle', document.getElementsByClassName('xs-container')[0].style.transform)
         this.$router.push({name: 'EditDevice'})
       },
       delItem (el, index) {
@@ -188,16 +187,15 @@
         this.fixHeight = (viewHeight - 100) + 'px'
       }
     },
-    mounted () {
-      console.log(this.$store.state.app.deviceScrollTopStyle)
-      this.$nextTick(() => {
-        document.getElementsByClassName('xs-container')[0].style.transform = this.$store.state.app.deviceScrollTopStyle
-      })
+    activated () {
       this.$store.commit('updateHeader', {title: '设备', isShowBack: false})
+    },
+    mounted () {
       this.autoList()
       window.onresize = () => {
         this.autoList()
       }
+      console.log(this.devices)
       if (this.devices.length === 0) {
         this.getDevices()
       }

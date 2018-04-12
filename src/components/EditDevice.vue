@@ -62,8 +62,10 @@
   import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader} from 'vux'
 
   export default {
-    mounted () {
+    activated () {
       this.$store.commit('updateHeader', {title: '编辑设备', isShowBack: true})
+    },
+    mounted () {
     },
     components: {
       Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader

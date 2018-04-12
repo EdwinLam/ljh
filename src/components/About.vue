@@ -50,8 +50,8 @@
   }))
 
   export default {
-    mounted () {
-      this.$store.commit('updateHeader', {title: '关于', isShowBack: false})
+    activated () {
+      this.$store.commit('updateHeader', {title: '首页', isShowBack: false})
     },
     components: {
       Swiper, Panel, DeviceList, Cell, Badge, Group, XButton, XSwitch, XInput, XImg, Card

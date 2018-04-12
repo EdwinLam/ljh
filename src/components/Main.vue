@@ -52,7 +52,9 @@
       <x-header slot="header" :title="title" :left-options="{showBack: isShowBack}" style="width:100%;position:absolute;left:0;top:0;z-index:100;"> <slot name="left"></slot>
       </x-header>
       <transition :name="viewTransition" :css="!!direction">
+        <keep-alive>
         <router-view class="router-view"></router-view>
+        </keep-alive>
       </transition>
       <tabbar slot="bottom" class="tabbar-container">
         <tabbar-item :link="{path:'/main/index'}" :selected="route.path === '/main/index'">
@@ -94,7 +96,8 @@
         isLoading: state => state.app.isLoading,
         direction: state => state.app.direction,
         title: state => state.app.title,
-        isShowBack: state => state.app.isShowBack
+        isShowBack: state => state.app.isShowBack,
+        includedComponents: state => state.app.includedComponents
       })
     },
     components: {
@@ -103,6 +106,7 @@
     methods: {
       onItemClick (index) {
         this.$router.push({name: this.module[index].name})
+        this.$store.commit('updateHeader', {title: this.module[index].name, isShowBack: false})
         this.curTitle = this.module[index].title
       }
     },

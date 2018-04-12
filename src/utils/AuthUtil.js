@@ -1,23 +1,22 @@
-import Cookies from 'js-cookie'
 import { PHONE, PASSWORD } from './Constants'
-
+import StorageUtil from './StorageUtil'
 export default class AuthUtil {
   static getPhone () {
-    return Cookies.get(PHONE)
+    return StorageUtil.getStorage(PHONE)
   }
   static setPhone (phone) {
-    return Cookies.set(PHONE, phone)
+    return StorageUtil.setStorage(PHONE, phone)
   }
   static removePhone () {
-    return Cookies.remove(PHONE)
+    return StorageUtil.removeStorage(PHONE)
   }
   static getPassword () {
-    return Cookies.get(PASSWORD)
+    return StorageUtil.getStorage(PASSWORD)
   }
   static setPassword (password) {
-    return Cookies.set(PASSWORD, password)
+    return StorageUtil.setStorage(PASSWORD, password)
   }
   static removePassword () {
-    return Cookies.remove(PASSWORD)
+    return StorageUtil.removeStorage(PASSWORD)
   }
 }

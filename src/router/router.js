@@ -95,6 +95,11 @@ export const appRouter = [
         name: 'EditDevice',
         component: () => import('@/components/EditDevice')
       },
+      {
+        path: 'setTask',
+        name: 'SetTask',
+        component: () => import('@/components/SetTask')
+      }
     ]
   },
   {

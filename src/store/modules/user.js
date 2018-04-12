@@ -9,8 +9,8 @@ const actions = {
 const mutations = {
   updateUser (state, {data, phone, password}) {
     if (data) {
-      AuthUtil.setPassword(this.password)
-      AuthUtil.setPhone(this.phone)
+      AuthUtil.setPassword(password)
+      AuthUtil.setPhone(phone)
       state.info = data
     } else {
       AuthUtil.removePassword()

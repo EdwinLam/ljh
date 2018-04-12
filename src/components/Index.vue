@@ -64,7 +64,7 @@
     components: {
       Swiper, Panel, DeviceList, Badge
     },
-    mounted () {
+    activated () {
       this.$store.commit('updateHeader', {title: '首页', isShowBack: false})
     },
 
