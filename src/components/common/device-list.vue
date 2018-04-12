@@ -180,12 +180,12 @@
         d1Items: [
           {url: p9, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
           {url: p10, name: 'ST-10A-W', gl: '2500W', dl: '10A'},
-          {url: p3, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
-          {url: p4, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
-          {url: p5, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
-          {url: p6, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
-          {url: p7, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
-          {url: p8, name: 'ST-16A-W', gl: '4000W', dl: '16A'}
+          // {url: p3, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
+          // {url: p4, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
+          // {url: p5, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
+          // {url: p6, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
+          // {url: p7, name: 'ST-16A-W', gl: '4000W', dl: '16A'},
+          // {url: p8, name: 'ST-16A-W', gl: '4000W', dl: '16A'}
         ]
       }
     }
