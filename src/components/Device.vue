@@ -11,6 +11,12 @@
     .item-wrap{
       padding:0rem 0rem .1rem;
       .item{
+        .weui-cells{
+          margin-top: .6rem !important;
+        }
+        .vux-close{
+          color:@support-color;
+        }
         padding:.5rem 1rem .5rem;
         margin: 1rem .5rem 1rem;
         border-radius:.2rem;
@@ -44,9 +50,13 @@
   <div class="device">
     <scroller lock-x scrollbar-y use-pulldown :height="fixHeight"  @on-pulldown-loading="refresh" v-model="status" ref="scroller">
       <div class="item-wrap">
-        <div class="item" v-for="el in devices">
+        <divider v-show="devices.length===0">暂无数据</divider>
+        <div sol class="item" v-for="(el,index) in devices">
         <group>
-          <cell title="设备名称" is-link>
+          <div slot="title" style="text-align: right">
+            <span class="vux-close" @click="delItem(el,index)"></span>
+          </div>
+          <cell title="设备名称">
             <badge :text="el.name" class="device-name"></badge>
           </cell>
           <cell :title="'类型'" :value="el.type"></cell>
@@ -56,6 +66,7 @@
           <cell :title="'定时设置'" >
             <span @click="openTimeSet">11:00-22:00</span>
           </cell>
+          <cell title="设备编辑" is-link @click.native="EditItem(el)"></cell>
           <cell class="vux-tap-active weui-cell_acces" @click.native="refreshMeter(el)">
             <div slot="child" class="textBtn">读取电量</div>
           </cell>
@@ -74,7 +85,6 @@
       <popup v-model="isShowSetTime" height="270px" is-transparent>
         <div style="width: 95%;background-color:#fff;height:250px;margin:0 auto;border-radius:5px;padding-top:10px;">
           <group>
-
             <datetime format="HH:mm" title="开始时间" value="20:12">
               <i class="iconfont icon-delete" slot="title" @click.stop>&nbsp;开始时间</i>
             </datetime>
@@ -94,15 +104,15 @@
 <script>
   import { mapState } from 'vuex'
   import { DeviceApi } from '../api'
-  import {Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, TransferDom, Scroller, Spinner} from 'vux'
-  import {CommonUtil} from '../utils'
+  import {Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, TransferDom, Scroller, Spinner, Divider} from 'vux'
+  import {CommonUtil, StorageUtil} from '../utils'
 
   export default {
     directives: {
       TransferDom
     },
     components: {
-      Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, Scroller, Spinner
+      Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, Scroller, Spinner, Divider
     },
     filters: {
       deviceSwitchState: function (value) {
@@ -110,6 +120,29 @@
       }
     },
     methods: {
+      EditItem (el) {
+        StorageUtil.setStorage('deviceEl', el)
+        this.$store.commit('updateDeviceScrollTopStyle', document.getElementsByClassName('xs-container')[0].style.transform)
+        this.$router.push({name: 'EditDevice'})
+      },
+      delItem (el, index) {
+        console.log(index)
+        const ctx = this
+        // prompt形式调用
+        this.$vux.confirm.show({
+          // 组件除show外的属性
+          async onCancel () {},
+          async onConfirm () {
+            CommonUtil.openLoading()
+            await DeviceApi.del({home_id: ctx.userInfo.home_id, device_id: el.id})
+            CommonUtil.closeLoading()
+            ctx.devices.splice(index, 1)
+            CommonUtil.sucToast(this, '删除成功', 500)
+          },
+          title: '操作提示',
+          content: '是否确定操作？'
+        })
+      },
       isCanEdit (el) {
         return el.state !== 'offline'
       },
@@ -136,7 +169,7 @@
         if (CommonUtil.isSuccess(res.code)) {
           el.state = el.isOn ? 'on' : 'off'
           el.data = res.data
-          CommonUtil.sucToast(this, '设备已切换成[' + (el.isOn ? '开' : '关') + ']状态', 500)
+          CommonUtil.sucToast(this, '设备' + el.name + '已切换成[' + (el.isOn ? '开' : '关') + ']状态', 500)
         }
       },
       openTimeSet () {
@@ -156,11 +189,18 @@
       }
     },
     mounted () {
+      console.log(this.$store.state.app.deviceScrollTopStyle)
+      this.$nextTick(() => {
+        document.getElementsByClassName('xs-container')[0].style.transform = this.$store.state.app.deviceScrollTopStyle
+      })
+      this.$store.commit('updateHeader', {title: '设备', isShowBack: false})
       this.autoList()
       window.onresize = () => {
         this.autoList()
       }
-      this.getDevices()
+      if (this.devices.length === 0) {
+        this.getDevices()
+      }
     },
     computed: {
       ...mapState({

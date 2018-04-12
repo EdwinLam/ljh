@@ -22,6 +22,7 @@
 </style>
 
 <template>
+  <div>
     <div class="index">
 
       <swiper :list="testItems" :height="'15rem'" :show-desc-mask="false"  dots-class="ljh-dots" dots-position="center"></swiper>
@@ -31,6 +32,7 @@
       <!--<device-list :list="dataItems"></device-list>-->
       <!--<operate-menu :list="operateMenuItems"></operate-menu>-->
     </div>
+  </div>
 </template>
 <script>
   import {Swiper, Panel, Badge} from 'vux'
@@ -62,6 +64,10 @@
     components: {
       Swiper, Panel, DeviceList, Badge
     },
+    mounted () {
+      this.$store.commit('updateHeader', {title: '首页', isShowBack: false})
+    },
+
     methods: {
     },
     data () {

@@ -54,8 +54,7 @@
   </div>
 </template>
 <script>
-  import {Tab, TabItem, Group, Cell} from 'vux'
-  import {Swiper} from '../common/swiper'
+  import {Tab, TabItem, Group, Cell, Swiper} from 'vux'
 
   export default {
     components: {

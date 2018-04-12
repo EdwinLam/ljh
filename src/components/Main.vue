@@ -23,12 +23,10 @@
   .vux-pop-out-leave-active,
   .vux-pop-in-enter-active,
   .vux-pop-in-leave-active {
-    will-change: transform;
     transition: all 500ms;
     height: 100%;
     position: absolute;
     backface-visibility: hidden;
-    perspective: 1000;
   }
   .vux-pop-out-enter {
     opacity: 0;
@@ -51,7 +49,7 @@
 <template>
   <div class="main">
     <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="53px">
-      <x-header slot="header" :title="title" :left-options="{showBack: false}" style="width:100%;position:absolute;left:0;top:0;z-index:100;"> <slot name="left"></slot>
+      <x-header slot="header" :title="title" :left-options="{showBack: isShowBack}" style="width:100%;position:absolute;left:0;top:0;z-index:100;"> <slot name="left"></slot>
       </x-header>
       <transition :name="viewTransition" :css="!!direction">
         <router-view class="router-view"></router-view>
@@ -94,14 +92,10 @@
         route: state => state.route,
         path: state => state.route.path,
         isLoading: state => state.app.isLoading,
-        direction: state => state.app.direction
-      }),
-      title () {
-        if (this.route.path === '/main/index') return '首页'
-        if (this.route.path === '/main/device') return '设备'
-        if (this.route.path === '/main/addDevice') return '新增'
-        if (this.route.path === '/main/about') return '关于'
-      }
+        direction: state => state.app.direction,
+        title: state => state.app.title,
+        isShowBack: state => state.app.isShowBack
+      })
     },
     components: {
       Tab, TabItem, ViewBox, XHeader, Tabbar, TabbarItem

@@ -16,11 +16,11 @@
     async mounted () {
       // 登录状态更新用户信息
       if (AuthUtil.getPhone()) {
-        const res = await AuthApi.login({phone: this.phone, password: this.password})
+        const res = await AuthApi.login({phone: AuthUtil.getPhone(), password: AuthUtil.getPassword()})
         if (CommonUtil.isSuccess(res)) {
           this.$store.dispatch('login', {
-            phone: this.form.userName,
-            password: this.form.password,
+            phone: AuthUtil.getPhone(),
+            password: AuthUtil.getPassword(),
             data: res.data
           })
         }
@@ -40,6 +40,7 @@
 <style lang="less">
   @import '~vux/src/styles/reset.less';
   @import './css/main.less';
+  @import '~vux/src/styles/close.less';
 
   body {
     background-color: #ffffff;

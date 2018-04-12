@@ -55,8 +55,16 @@ export default class AuthApi {
     return fetch.post('/device/add', data)
   }
   static del ({home_id, device_id}) {
-    const data = { home_id, device_id }
-    return fetch.post('/device/delete', data)
+    return new Promise(resolve => {
+      resolve({
+        code: 200,
+        message: '登录成功',
+        data: 50
+      })
+    })
+    //
+    // const data = { home_id, device_id }
+    // return fetch.post('/device/delete', data)
   }
   static switch ({home_id, device_id, param}) {
     return new Promise(resolve => {

@@ -89,7 +89,12 @@ export const appRouter = [
         path: 'about',
         name: 'About',
         component: () => import('@/components/About')
-      }
+      },
+      {
+        path: 'editDevice',
+        name: 'EditDevice',
+        component: () => import('@/components/EditDevice')
+      },
     ]
   },
   {

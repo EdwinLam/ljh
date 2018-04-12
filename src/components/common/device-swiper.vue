@@ -11,7 +11,7 @@
   </swiper>
 </template>
 <script>
-  import {Swiper} from './swiper'
+  import {Swiper} from 'vux'
   export default {
     name: 'device-swiper',
     props: {

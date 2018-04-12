@@ -1,6 +1,6 @@
 <style lang="less">
   @import '../css/main.less';
-  .device-add {
+  .device-edit {
     .main-container{
       background-color: white;
       padding:.5rem .5rem .5rem;
@@ -29,8 +29,8 @@
 
 <template>
   <div>
-  <div class="device-add">
-    <div class="main-container">
+  <div class="device-edit">
+      <div class="main-container">
     <group>
       <x-input title="SSID" placeholder="请输入无线网络SSID">
         <i class="iconfont icon-wifi btn-icon" slot="label">&nbsp;SSID</i>
@@ -51,7 +51,7 @@
         <div slot="child" class="textBtn">配置网络</div>
       </cell>
       <cell class="vux-tap-active weui-cell_acces">
-        <div slot="child" class="textBtn" @click="clickButton">加入我的设备</div>
+        <div slot="child" class="textBtn">保存设置</div>
       </cell>
     </group>
     </div>
@@ -59,58 +59,19 @@
   </div>
 </template>
 <script>
-  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput} from 'vux'
-  import {DeviceList} from './common'
-
-  const imgList = [
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff'
-  ]
-
-  const demoList = imgList.map((one, index) => ({
-    url: 'javascript:',
-    img: one
-  }))
+  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader} from 'vux'
 
   export default {
     mounted () {
-      this.$store.commit('updateTitle', {title: '增加设备'})
+      this.$store.commit('updateHeader', {title: '编辑设备', isShowBack: true})
     },
     components: {
-      Swiper, Panel, DeviceList, Cell, Badge, Group, XButton, XSwitch, XInput
-    },
-    sockets: {
-      connect: function (val) {
-        console.log(val)
-        this.id = this.$socket.id
-      },
-      customEmit: function (val) {
-        console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)'+val)
-      }
-    },
-    mounted () {
-      this.$socket.emit('connect', 'haha') // 在这里触发connect事件
-    },
-    methods: {
-      clickButton: function (val) {
-        // $socket is socket.io-client instance
-        this.$socket.emit('join', val)
-      }
+      Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader
     },
     // store.commit('updateLoadingStatus', {isLoading: true})
 
     data () {
       return {
-        testItems: demoList,
-        dataItems: [
-          {id: 1, name: '客厅 ', icon: 'icon-sofa2'},
-          {id: 2, name: '餐厅 ', icon: 'icon-canzhuo'},
-          {id: 3, name: '厨房 ', icon: 'icon-chufangwujinanzhuang'},
-          {id: 4, name: '洗手间 ', icon: 'icon-hekriconqingjingyushicesuo'},
-          {id: 5, name: '更多 ', icon: 'icon-star'}
-        ]
       }
     }
   }

@@ -83,18 +83,17 @@
     </swiper>
     <div class="content-container">
       <group>
-        <cell :title="'设备名称'" is-link :value="'卧室/床头柜/插座'"></cell>
-        <cell :title="'设备ID'" :value="'SSSSS8888'"></cell>
-        <cell :title="'功率'" :value="'10A'" is-link></cell>
-        <cell :title="'关于设备'"  is-link></cell>
+        <cell title="设备名称" is-link :value="'卧室/床头柜/插座'"></cell>
+        <cell title="设备ID" :value="'SSSSS8888'"></cell>
+        <cell title="功率" :value="'10A'" is-link></cell>
+        <cell title="关于设备"  is-link></cell>
       </group>
     </div>
 
   </div>
 </template>
 <script>
-  import {Tab, TabItem, XHeader, Group, Cell, XSwitch} from 'vux'
-  import {Swiper} from '../common/swiper'
+  import {Tab, TabItem, XHeader, Group, Cell, XSwitch, Swiper} from 'vux'
 
   const imgList = [
     'http://placeholder.qiniudn.com/800x300/ffffff',
