@@ -8,8 +8,24 @@
 <script>
   import { Loading } from 'vux'
   import { mapState } from 'vuex'
+  import {AuthUtil, CommonUtil} from './utils'
+  import {AuthApi} from './api'
+
   export default {
     name: 'app',
+    async mounted () {
+      // 登录状态更新用户信息
+      if (AuthUtil.getPhone()) {
+        const res = await AuthApi.login({phone: this.phone, password: this.password})
+        if (CommonUtil.isSuccess(res)) {
+          this.$store.dispatch('login', {
+            phone: this.form.userName,
+            password: this.form.password,
+            data: res.data
+          })
+        }
+      }
+    },
     components: {
       Loading
     },

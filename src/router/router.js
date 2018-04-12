@@ -1,17 +1,17 @@
 export const appRouter = [
   {
     path: '/login',
-    name: 'login',
+    name: 'Login',
     component: () => import('@/components/Login')
   },
   {
     path: '/register',
-    name: 'register',
+    name: 'Register',
     component: () => import('@/components/Register')
   },
   {
     path: '/sceneExecute',
-    name: 'sceneExecute',
+    name: 'SceneExecute',
     component: () => import('@/components/scene/SceneExecute')
   },
   {

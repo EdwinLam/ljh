@@ -42,20 +42,21 @@
 
 <template>
   <div class="device">
-    <scroller lock-x scrollbar-y use-pullup use-pulldown :height="fixHeight" @on-pullup-loading="loadMore" @on-pulldown-loading="refresh" v-model="status" ref="scroller">
+    <scroller lock-x scrollbar-y use-pulldown :height="fixHeight"  @on-pulldown-loading="refresh" v-model="status" ref="scroller">
       <div class="item-wrap">
-        <div class="item" v-for="el in test">
+        <div class="item" v-for="el in devices">
         <group>
-          <cell :title="'设备名称'">
-            <badge text="123" class="device-name"></badge>
+          <cell title="设备名称" is-link>
+            <badge :text="el.name" class="device-name"></badge>
           </cell>
-          <cell :title="'类型'" value="123"></cell>
-          <x-switch title="开关状态(开)" class="switch-btn"></x-switch>
-          <cell :title="'电量(度)'" value="0"></cell>
+          <cell :title="'类型'" :value="el.type"></cell>
+          <x-switch title="开关状态" :inlineDesc="el.state|deviceState" class="switch-btn" on-change="el.state" :disabled="!isCanEdit(el)" v-model="el.isOn" @on-change="switchDevice(el)">
+          </x-switch>
+          <cell :title="'电量(度)'" :value="el.data"></cell>
           <cell :title="'定时设置'" >
             <span @click="openTimeSet">11:00-22:00</span>
           </cell>
-          <cell class="vux-tap-active weui-cell_acces">
+          <cell class="vux-tap-active weui-cell_acces" @click.native="refreshMeter(el)">
             <div slot="child" class="textBtn">读取电量</div>
           </cell>
         </group>
@@ -65,11 +66,6 @@
       <div slot="pulldown" class="xs-plugin-pullup-container xs-plugin-pullup-down" style="position: absolute; width: 100%; height: 40px; top: -40px; text-align: center;">
         <span v-show="status.pulldownStatus === 'default'"></span>
         <span v-show="status.pulldownStatus === 'loading'"><spinner type="ios-small"></spinner></span>
-      </div>
-      <!--pullup slot-->
-      <div slot="pullup" class="xs-plugin-pullup-container xs-plugin-pullup-up" style="position: absolute; width: 100%; height: 40px; bottom: -20px; text-align: center;">
-        <span v-show="status.pullupStatus === 'default'"></span>
-        <span v-show="status.pullupStatus === 'loading'"><spinner type="ios-small"></spinner></span>
       </div>
     </scroller>
 
@@ -96,49 +92,63 @@
    </div>
 </template>
 <script>
-  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, TransferDom, Scroller, Spinner} from 'vux'
-  import {DeviceList} from './common'
-  const imgList = [
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff'
-  ]
-
-  const demoList = imgList.map((one, index) => ({
-    url: 'javascript:',
-    img: one
-  }))
+  import { mapState } from 'vuex'
+  import { DeviceApi } from '../api'
+  import {Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, TransferDom, Scroller, Spinner} from 'vux'
+  import {CommonUtil} from '../utils'
 
   export default {
     directives: {
       TransferDom
     },
     components: {
-      Swiper, Panel, DeviceList, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, Scroller, Spinner
+      Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, Scroller, Spinner
+    },
+    filters: {
+      deviceSwitchState: function (value) {
+        return value === 'on'
+      }
     },
     methods: {
+      isCanEdit (el) {
+        return el.state !== 'offline'
+      },
+      async getDevices () {
+        CommonUtil.openLoading()
+        const res = await DeviceApi.list({home_id: this.userInfo.home_id})
+        CommonUtil.closeLoading()
+        res.devices = res.devices.map(el => Object.assign({isOn: el.state === 'on'}, el))
+        this.devices = res.devices
+      },
+      async refreshMeter (el) {
+        CommonUtil.openLoading()
+        const res = await DeviceApi.meter({home_id: this.userInfo.home_id, device_id: el.id})
+        CommonUtil.closeLoading()
+        if (CommonUtil.isSuccess(res.code)) {
+          el.data = res.data
+          CommonUtil.sucToast(this, '读取电量成功', 500)
+        }
+      },
+      async switchDevice (el) {
+        CommonUtil.openLoading()
+        const res = await DeviceApi.switch({home_id: this.userInfo.home_id, device_id: el.id, param: el.isOn ? 'on' : 'off'})
+        CommonUtil.closeLoading()
+        if (CommonUtil.isSuccess(res.code)) {
+          el.state = el.isOn ? 'on' : 'off'
+          el.data = res.data
+          CommonUtil.sucToast(this, '设备已切换成[' + (el.isOn ? '开' : '关') + ']状态', 500)
+        }
+      },
       openTimeSet () {
         this.isShowSetTime = true
       },
-      loadMore () {
-        setTimeout(() => {
-          this.test += 10
+      loadMore () {},
+      async refresh () {
+        this.$nextTick(() => {
           setTimeout(() => {
-            this.$refs.scroller.donePullup()
+            this.$refs.scroller.donePulldown()
           }, 10)
-        }, 2000)
-      },
-      refresh () {
-        setTimeout(() => {
-          this.test = 10
-          this.$nextTick(() => {
-            setTimeout(() => {
-              this.$refs.scroller.donePulldown()
-              this.$refs.scroller.enablePullup()
-            }, 10)
-          })
-        }, 2000)
+        })
       },
       autoList () {
         const viewHeight = document.getElementById('vux_view_box_body').clientHeight
@@ -150,24 +160,22 @@
       window.onresize = () => {
         this.autoList()
       }
+      this.getDevices()
+    },
+    computed: {
+      ...mapState({
+        userInfo: state => state.user.info
+      })
     },
     data () {
       return {
         fixHeight: '0',
-        test: 10,
+        devices: [],
         status: {
           pullupStatus: 'default',
           pulldownStatus: 'default'
         },
-        isShowSetTime: false,
-        testItems: demoList,
-        dataItems: [
-          {id: 1, name: '客厅 ', icon: 'icon-sofa2'},
-          {id: 2, name: '餐厅 ', icon: 'icon-canzhuo'},
-          {id: 3, name: '厨房 ', icon: 'icon-chufangwujinanzhuang'},
-          {id: 4, name: '洗手间 ', icon: 'icon-hekriconqingjingyushicesuo'},
-          {id: 5, name: '更多 ', icon: 'icon-star'}
-        ]
+        isShowSetTime: false
       }
     }
   }

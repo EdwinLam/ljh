@@ -1,8 +1,7 @@
-import axios from 'axios'
+import { AjaxPlugin } from 'vux'
 
-console.log(process.env.BASE_API)
 // 创建axios实例
-const service = axios.create({
+const service = AjaxPlugin.$http.create({
   baseURL: process.env.BASE_API, // api的base_url
   timeout: 5000 // 请求超时时间
 })
@@ -10,13 +9,12 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(config => {
     // Do something before request is sent
-  if (AuthUtil.getToken()) {
-    config.headers['Authorization'] = 'Bearer '
-  }
+  // if (AuthUtil.getToken()) {
+  //   config.headers['Authorization'] = 'Bearer '
+  // }
   return config
 }, error => {
     // Do something with request error
-  iView.Message.error(error)
   Promise.reject(error)
 })
 
@@ -26,7 +24,6 @@ service.interceptors.response.use(
 
     error => {
         // iView.Message.error(error.message);
-      router.push({path: '/login'})
       return Promise.reject(error)
     }
 )

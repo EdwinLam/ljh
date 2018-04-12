@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {routers} from './router'
 import store from '../store'
+import {AuthUtil} from '../utils'
 
 // simple history management
 const history = window.sessionStorage
@@ -21,7 +22,7 @@ const RouterConfig = {
 export const router = new VueRouter(RouterConfig)
 
 router.beforeEach((to, from, next) => {
-  store.commit('updateLoadingStatus', {isLoading: true})
+  // store.commit('updateLoadingStatus', {isLoading: true})
   const toIndex = history.getItem(to.path)
   const fromIndex = history.getItem(from.path)
 
@@ -47,12 +48,14 @@ router.beforeEach((to, from, next) => {
     let url = to.path.split('http')[1]
     window.location.href = `http${url}`
   } else {
-    next()
+    if (!AuthUtil.getPhone() && to.name !== 'Login' && to.name !== 'Ad') {
+      next({ name: 'Login'})
+    } else {
+      next()
+    }
   }
-
-  next()
 })
 
 router.afterEach((to) => {
-  store.commit('updateLoadingStatus', {isLoading: false})
+  // store.commit('updateLoadingStatus', {isLoading: false})
 })

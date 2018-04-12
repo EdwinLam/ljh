@@ -50,7 +50,7 @@
         <div slot="child" class="textBtn">配置网络</div>
       </cell>
       <cell class="vux-tap-active weui-cell_acces">
-        <div slot="child" class="textBtn">加入我的设备</div>
+        <div slot="child" class="textBtn" @click="clickButton">加入我的设备</div>
       </cell>
     </group>
     </div>
@@ -76,8 +76,27 @@
     components: {
       Swiper, Panel, DeviceList, Cell, Badge, Group, XButton, XSwitch, XInput
     },
-    methods: {},
-    data() {
+    sockets: {
+      connect: function (val) {
+        console.log(val)
+        this.id = this.$socket.id
+      },
+      customEmit: function (val) {
+        console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)'+val)
+      }
+    },
+    mounted () {
+      this.$socket.emit('connect', 'haha') // 在这里触发connect事件
+    },
+    methods: {
+      clickButton: function (val) {
+        // $socket is socket.io-client instance
+        this.$socket.emit('join', val)
+      }
+    },
+    // store.commit('updateLoadingStatus', {isLoading: true})
+
+    data () {
       return {
         testItems: demoList,
         dataItems: [
