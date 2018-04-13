@@ -50,7 +50,9 @@ router.beforeEach((to, from, next) => {
     window.location.href = `http${url}`
   } else {
     if (!AuthUtil.getPhone() && to.name !== 'Login' && to.name !== 'Ad') {
-      next({ name: 'Login'})
+      next({name: 'Login'})
+    } else if ((to.name === 'Login' || to.name === 'Register' || to.name === 'Verification') && AuthUtil.getPhone()) {
+      next({name: 'Index'})
     } else {
       next()
     }
