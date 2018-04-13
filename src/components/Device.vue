@@ -64,7 +64,6 @@
           </x-switch>
           <cell title="电量(度)" :value="el.data"></cell>
           <cell title="定时设置" is-link @click.native="setTask(index)"></cell>
-          <cell title="设备编辑" is-link @click.native="EditItem(index)"></cell>
           <cell class="vux-tap-active weui-cell_acces" @click.native="refreshMeter(index)">
             <div slot="child" class="textBtn">读取电量</div>
           </cell>
@@ -84,7 +83,7 @@
   import { mapState } from 'vuex'
   import { DeviceApi } from '../api'
   import {Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Scroller, Spinner, Divider} from 'vux'
-  import {CommonUtil, StorageUtil} from '../utils'
+  import {CommonUtil} from '../utils'
 
   export default {
     name: 'Device',

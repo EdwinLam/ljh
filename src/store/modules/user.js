@@ -12,11 +12,12 @@ const mutations = {
       AuthUtil.setPassword(password)
       AuthUtil.setPhone(phone)
       state.info = data
-    } else {
-      AuthUtil.removePassword()
-      AuthUtil.removePhone()
-      state.info = {}
     }
+  },
+  logout (state) {
+    AuthUtil.removePassword()
+    AuthUtil.removePhone()
+    state.info = {}
   }
 }
 const user = {

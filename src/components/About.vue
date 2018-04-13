@@ -28,6 +28,7 @@
           <cell title="智能插座app"></cell>
           <cell title="V1.0"></cell>
           <cell title="2018©联家汇智能科技"></cell>
+          <x-button type="primary" class="weiui-btn" @click.native="logout">登出</x-button>
         </group>
       </card>
     </div>
@@ -35,20 +36,9 @@
 <script>
   import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XImg, Card} from 'vux'
   import ad4 from '@/assets/ad4.jpg'
+  import {CommonUtil} from '../utils'
 
   import {DeviceList} from './common'
-  const imgList = [
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff'
-  ]
-
-  const demoList = imgList.map((one, index) => ({
-    url: 'javascript:',
-    img: one
-  }))
-
   export default {
     activated () {
       this.$store.commit('updateHeader', {title: '首页', isShowBack: false})
@@ -57,19 +47,15 @@
       Swiper, Panel, DeviceList, Cell, Badge, Group, XButton, XSwitch, XInput, XImg, Card
     },
     methods: {
+      async logout () {
+        this.$store.commit('logout')
+        this.$router.push({name: 'Login'})
+        CommonUtil.sucToast(this, '登出成功', 1000)
+      }
     },
     data () {
       return {
-        ad4Url: ad4,
-        testUrl: 'http://placeholder.qiniudn.com/1024x768/ffffff',
-        testItems: demoList,
-        dataItems: [
-          {id: 1, name: '客厅 ', icon: 'icon-sofa2'},
-          {id: 2, name: '餐厅 ', icon: 'icon-canzhuo'},
-          {id: 3, name: '厨房 ', icon: 'icon-chufangwujinanzhuang'},
-          {id: 4, name: '洗手间 ', icon: 'icon-hekriconqingjingyushicesuo'},
-          {id: 5, name: '更多 ', icon: 'icon-star'}
-        ]
+        ad4Url: ad4
       }
     }
   }
