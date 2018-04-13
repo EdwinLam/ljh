@@ -17,7 +17,7 @@
       // 登录状态更新用户信息
       if (AuthUtil.getPhone()) {
         const res = await AuthApi.login({phone: AuthUtil.getPhone(), password: AuthUtil.getPassword()})
-        if (CommonUtil.isSuccess(res)) {
+        if (CommonUtil.isSuccess(res.code)) {
           this.$store.commit('updateUser', {
             phone: AuthUtil.getPhone(),
             password: AuthUtil.getPassword(),
