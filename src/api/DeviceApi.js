@@ -12,24 +12,24 @@ export default class AuthApi {
           name: '插座A',
           state: 'offline',
           data: 100,
-          tasks: {
+          tasks: [{
             start: '10:12',
             end: '10:11',
             repeat: '1',
             action: 'on'
-          }
+          }]
         }, {
           device_id: '123',
           type: '123',
           name: '插座B',
           state: 'on',
           data: 100,
-          tasks: {
+          tasks: [{
             start: '10:12',
             end: '10:11',
             repeat: '1',
             action: 'on'
-          }
+          }]
         },
         {
           device_id: '123',
@@ -37,12 +37,12 @@ export default class AuthApi {
           name: '插座C',
           state: 'on',
           data: 100,
-          tasks: {
+          tasks: [{
             start: '10:12',
             end: '10:11',
             repeat: '1',
             action: 'on'
-          }
+          }]
         }
         ]
       })
@@ -96,12 +96,26 @@ export default class AuthApi {
     const params = {home_id, device_id}
     return fetch.get('/device/task/list', params)
   }
-  static addTask ({home_id, device_id, start, end}) {
-    const data = {home_id, device_id, start, end}
+  static addTask ({home_id, device_id, start, end, repeat, action}) {
+    return new Promise(resolve => {
+      resolve({
+        code: 200,
+        message: '登录成功',
+        data: 50
+      })
+    })
+    const data = {home_id, device_id, start, end, repeat, action}
     return fetch.post('/device/task/list', data)
   }
   static delTask ({home_id, device_id, start, end, repeat}) {
-    const data = {home_id, device_id, start, end, repeat}
-    return fetch.post('/device/task/del', data)
+    return new Promise(resolve => {
+      resolve({
+        code: 200,
+        message: '登录成功',
+        data: 50
+      })
+    })
+    // const data = {home_id, device_id, start, end, repeat}
+    // return fetch.post('/device/task/del', data)
   }
 }

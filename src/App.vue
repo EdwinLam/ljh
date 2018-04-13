@@ -18,7 +18,7 @@
       if (AuthUtil.getPhone()) {
         const res = await AuthApi.login({phone: AuthUtil.getPhone(), password: AuthUtil.getPassword()})
         if (CommonUtil.isSuccess(res)) {
-          this.$store.dispatch('login', {
+          this.$store.commit('updateUser', {
             phone: AuthUtil.getPhone(),
             password: AuthUtil.getPassword(),
             data: res.data

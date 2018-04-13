@@ -3,24 +3,24 @@
     <x-header title="注册"></x-header>
     <div class="main-container">
       <div class="message-tip">
-        验证码已发送到您的手机：<p class="phone">+86 13824789781</p>
+        验证码已发送到您的手机：<p class="phone">+86 {{phone}}</p>
       </div>
       <flexbox :gutter="0" class="input-area" :justify="'space-between'">
         <flexbox-item :span="7">
-          <group>
-            <x-input placeholder="验证码" class="account-input"></x-input>
-          </group>
+            <x-input placeholder="验证码" class="account-input" v-model="code" required></x-input>
         </flexbox-item>
         <flexbox-item :span="4">
-          <x-button type="primary" class="resend">重新获取(60)</x-button>
+          <x-button type="primary" class="resend" :disabled="timeLimit!=0" @click.native="sendValidation">重新获取{{timeLimit>0?('('+timeLimit+')'):''}}</x-button>
         </flexbox-item>
       </flexbox>
-      <x-button type="primary" class="ok-btn" style="">确定</x-button>
+      <x-button type="primary" class="ok-btn" style="" @click.native="register">确定</x-button>
     </div>
   </div>
 </template>
 <script>
   import {XInput, XButton, XHeader, Flexbox, FlexboxItem} from 'vux'
+  import {AuthApi} from '../api'
+  import {CommonUtil} from '../utils'
   export default {
     components: {
       XInput,
@@ -29,12 +29,47 @@
       Flexbox,
       FlexboxItem
     },
+    methods: {
+      async register () {
+        if (this.code === '') {
+          CommonUtil.warnToast(this, '验证码不能为空', 1000)
+        }
+        const res = await AuthApi.validation(this.phone, this.code)
+        if (CommonUtil.isSuccess(res.code)) {
+          await AuthApi.register(this.phone,this.password,this.home_id,this.code)
+          CommonUtil.sucToast(this, '注册成功', 100)
+        }
+      },
+      sendValidation () {
+        AuthApi.smsSend({phone: this.phone})
+        CommonUtil.sucToast(this, '发送验证码成功', 100)
+        this.timeLimit = 60
+        const countTimer = setInterval(() => {
+          this.timeLimit--
+          if (this.timeLimit <= 0) {
+            clearInterval(countTimer)
+          }
+        }, 1000)
+      }
+    },
     mounted: function () {
-      console.log('ok')
+      if (this.$route.params.phone) {
+        this.phone = this.$route.params.phone
+        this.password = this.$route.params.password
+        this.home_name = this.$route.params.home_name
+      } else {
+        this.$router.push({name: 'Register'})
+        return
+      }
+      this.sendValidation()
     },
     data () {
       return {
-        msg: 'Hello World!'
+        timeLimit: 0,
+        phone: '',
+        code: '',
+        password: '',
+        home_name: ''
       }
     }
   }
@@ -76,7 +111,6 @@
       /*确定按钮*/
       .ok-btn {
         .weiui-btn;
-        background-color: #9E9EA0 !important;
         margin-top: 0.5rem;
         padding: .2rem;
         font-weight: 500;

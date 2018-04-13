@@ -54,18 +54,18 @@
         <div sol class="item" v-for="(el,index) in devices">
         <group>
           <div slot="title" style="text-align: right">
-            <span class="vux-close" @click="delItem(el,index)"></span>
+            <span class="vux-close" @click="delItem(index)"></span>
           </div>
           <cell title="设备名称">
             <badge :text="el.name" class="device-name"></badge>
           </cell>
           <cell :title="'类型'" :value="el.type"></cell>
-          <x-switch title="开关状态" :inlineDesc="el.state|deviceState" class="switch-btn" on-change="el.state" :disabled="!isCanEdit(el)" v-model="el.isOn" @on-change="switchDevice(el)">
+          <x-switch title="开关状态" :inlineDesc="el.state|deviceState" class="switch-btn" on-change="el.state" :disabled="!isCanEdit(el)" v-model="el.isOn" @on-change="switchDevice(index)">
           </x-switch>
-          <cell :title="'电量(度)'" :value="el.data"></cell>
-          <cell :title="'定时设置'" is-link @click.native="setTask(el)"></cell>
-          <cell title="设备编辑" is-link @click.native="EditItem(el)"></cell>
-          <cell class="vux-tap-active weui-cell_acces" @click.native="refreshMeter(el)">
+          <cell title="电量(度)" :value="el.data"></cell>
+          <cell title="定时设置" is-link @click.native="setTask(index)"></cell>
+          <cell title="设备编辑" is-link @click.native="EditItem(index)"></cell>
+          <cell class="vux-tap-active weui-cell_acces" @click.native="refreshMeter(index)">
             <div slot="child" class="textBtn">读取电量</div>
           </cell>
         </group>
@@ -78,40 +78,18 @@
       </div>
     </scroller>
 
-
-    <div v-transfer-dom>
-      <popup v-model="isShowSetTime" height="270px" is-transparent>
-        <div style="width: 95%;background-color:#fff;height:250px;margin:0 auto;border-radius:5px;padding-top:10px;">
-          <group>
-            <datetime format="HH:mm" title="开始时间" value="20:12">
-              <i class="iconfont icon-delete" slot="title" @click.stop>&nbsp;开始时间</i>
-            </datetime>
-            <datetime format="HH:mm" title="结束时间" value="20:12">
-              <i class="iconfont icon-delete" slot="title">&nbsp;开始时间</i>
-            </datetime>
-          </group>
-          <div style="padding:20px 15px;">
-            <x-button type="primary" class="pupup-btn">确认</x-button>
-            <x-button @click.native="isShowSetTime = false">取消</x-button>
-          </div>
-        </div>
-      </popup>
-    </div>
-   </div>
+  </div>
 </template>
 <script>
   import { mapState } from 'vuex'
   import { DeviceApi } from '../api'
-  import {Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, TransferDom, Scroller, Spinner, Divider} from 'vux'
+  import {Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Scroller, Spinner, Divider} from 'vux'
   import {CommonUtil, StorageUtil} from '../utils'
 
   export default {
     name: 'Device',
-    directives: {
-      TransferDom
-    },
     components: {
-      Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Popup, Scroller, Spinner, Divider
+      Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Scroller, Spinner, Divider
     },
     filters: {
       deviceSwitchState: function (value) {
@@ -119,16 +97,15 @@
       }
     },
     methods: {
-      EditItem (el) {
-        this.$store.commit('updateIncludedComponents', 'Device')
-        StorageUtil.setStorage('deviceEl', el)
+      EditItem (index) {
         this.$router.push({name: 'EditDevice'})
       },
-      setTask (el) {
+      setTask (index) {
+        this.$store.commit('setCurItems', index)
         this.$router.push({name: 'SetTask'})
       },
-      delItem (el, index) {
-        console.log(index)
+      delItem (index) {
+        const el = this.devices[index]
         const ctx = this
         // prompt形式调用
         this.$vux.confirm.show({
@@ -138,8 +115,8 @@
             CommonUtil.openLoading()
             await DeviceApi.del({home_id: ctx.userInfo.home_id, device_id: el.id})
             CommonUtil.closeLoading()
-            ctx.devices.splice(index, 1)
-            CommonUtil.sucToast(this, '删除成功', 500)
+            ctx.$store.commit('deleteDevice', index)
+            CommonUtil.sucToast(ctx, '删除成功', 500)
           },
           title: '操作提示',
           content: '是否确定操作？'
@@ -153,24 +130,25 @@
         const res = await DeviceApi.list({home_id: this.userInfo.home_id})
         CommonUtil.closeLoading()
         res.devices = res.devices.map(el => Object.assign({isOn: el.state === 'on'}, el))
-        this.devices = res.devices
+        this.$store.commit('updateDevices', res.devices)
       },
-      async refreshMeter (el) {
+      async refreshMeter (index) {
+        const el = this.devices[index]
         CommonUtil.openLoading()
         const res = await DeviceApi.meter({home_id: this.userInfo.home_id, device_id: el.id})
         CommonUtil.closeLoading()
         if (CommonUtil.isSuccess(res.code)) {
-          el.data = res.data
+          this.$store.commit('refreshMeter', {data: res.data, index})
           CommonUtil.sucToast(this, '读取电量成功', 500)
         }
       },
-      async switchDevice (el) {
+      async switchDevice (index) {
+        const el = this.devices[index]
         CommonUtil.openLoading()
         const res = await DeviceApi.switch({home_id: this.userInfo.home_id, device_id: el.id, param: el.isOn ? 'on' : 'off'})
         CommonUtil.closeLoading()
         if (CommonUtil.isSuccess(res.code)) {
-          el.state = el.isOn ? 'on' : 'off'
-          el.data = res.data
+          this.$store.commit('switchDevice', {data: el.isOn ? 'on' : 'off', index})
           CommonUtil.sucToast(this, '设备' + el.name + '已切换成[' + (el.isOn ? '开' : '关') + ']状态', 500)
         }
       },
@@ -198,20 +176,19 @@
       window.onresize = () => {
         this.autoList()
       }
-      console.log(this.devices)
       if (this.devices.length === 0) {
         this.getDevices()
       }
     },
     computed: {
       ...mapState({
-        userInfo: state => state.user.info
+        userInfo: state => state.user.info,
+        devices: state => state.device.items
       })
     },
     data () {
       return {
         fixHeight: '0',
-        devices: [],
         status: {
           pullupStatus: 'default',
           pulldownStatus: 'default'

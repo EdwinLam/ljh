@@ -40,9 +40,11 @@
     <div class="main-container">
       <div class="form-container">
         <group>
-          <x-input  placeholder="手机号码/邮箱" class="input-item"></x-input>
+          <x-input  placeholder="手机号码" class="input-item" required v-model="phone"></x-input>
+          <x-input  placeholder="家庭名称" class="input-item" required v-model="home_name"></x-input>
+          <x-input  placeholder="密码" class="input-item" required v-model="password" type="password"></x-input>
         </group>
-        <x-button type="primary" class="next-step-btn">下一步</x-button>
+        <x-button type="primary" class="next-step-btn" @click.native="nextStep">下一步</x-button>
         <div class="message-tip">注册即同意<span class="user-permission">用户协议与隐私条款</span></div>
       </div>
 
@@ -51,6 +53,7 @@
 </template>
 <script>
   import {XInput, XButton, XHeader, Group} from 'vux'
+  import {CommonUtil} from '../utils'
   export default {
     components: {
       XInput,
@@ -58,12 +61,21 @@
       XHeader,
       Group
     },
+    methods: {
+      nextStep () {
+        if (!this.phone) {
+          CommonUtil.warnToast(this, '手机不能为空', 1000)
+        }
+        this.$router.push({name: 'Verification', params: {phone: this.phone, home_name: this.home_name, password: this.password}})
+      }
+    },
     mounted: function () {
-      console.log('ok')
     },
     data () {
       return {
-        msg: 'Hello World!'
+        phone: '',
+        home_name: '',
+        password: ''
       }
     }
   }

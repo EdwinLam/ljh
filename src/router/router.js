@@ -16,7 +16,7 @@ export const appRouter = [
   },
   {
     path: '/verification',
-    name: 'verification',
+    name: 'Verification',
     component: () => import('@/components/Verification')
   },
   {
