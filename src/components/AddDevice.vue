@@ -32,9 +32,8 @@
   <div class="device-add">
     <div class="main-container">
     <group>
-      <x-input title="SSID" placeholder="请输入无线网络SSID">
-        <i class="iconfont icon-wifi btn-icon" slot="label">&nbsp;SSID</i>
-      </x-input>
+      <selector placeholder="请选择设备SSID"  title="SSID" name="district" :options="wifiItems" >
+      </selector>
       <x-input type="password" title="密码" placeholder="请输入密码">
         <i class="iconfont icon-suo btn-icon" slot="label">&nbsp;密码</i>
       </x-input>
@@ -45,7 +44,7 @@
       <cell title="设备类型"></cell>
       <cell title="设备描述" value="0"></cell>
       <cell class="vux-tap-active weui-cell_acces">
-        <div slot="child" class="textBtn">刷新网络</div>
+        <div slot="child" class="textBtn" @click="doRefreshWifi">刷新网络</div>
       </cell>
       <cell class="vux-tap-active weui-cell_acces">
         <div slot="child" class="textBtn">配置网络</div>
@@ -59,8 +58,9 @@
   </div>
 </template>
 <script>
-  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput} from 'vux'
+  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, Selector} from 'vux'
   import {DeviceList} from './common'
+  import {CommonUtil} from '../utils'
 
   const imgList = [
     'http://placeholder.qiniudn.com/800x300/ffffff',
@@ -75,10 +75,14 @@
   }))
 
   export default {
-
+    mounted () {
+      setTimeout(() => {
+        this.refreshWifiItems()
+      }, 300)
+    },
     components: {
-      Swiper, Panel, DeviceList, Cell, Badge, Group, XButton, XSwitch, XInput
-  },
+      Swiper, Panel, DeviceList, Cell, Badge, Group, XButton, XSwitch, XInput, Selector
+    },
     sockets: {
       connect: function (val) {
         console.log(val)
@@ -95,12 +99,40 @@
       clickButton: function (val) {
         // $socket is socket.io-client instance
         this.$socket.emit('join', val)
+      },
+      doRefreshWifi () {
+        this.refreshWifiItems()
+        CommonUtil.sucToast(this, '读取电量成功', 500)
+      },
+      refreshWifiItems () {
+        const MainActivity = plus.android.runtimeMainActivity()
+        // 上下文
+        const Context = plus.android.importClass('android.content.Context')
+        // 导入WIFI管理 和 WIFI 信息 的class
+        plus.android.importClass('android.net.wifi.WifiManager')
+        plus.android.importClass('android.net.wifi.WifiInfo')
+        plus.android.importClass('android.net.wifi.ScanResult')
+        plus.android.importClass('java.util.ArrayList')
+        // 获取 WIFI 管理实例
+        const wifiManager = MainActivity.getSystemService(Context.WIFI_SERVICE)
+        // 获取当前连接WIFI的信息
+        const resultList = wifiManager.getScanResults()
+        wifiManager.setWifiEnabled(true)// 打开wifi,false为关闭
+        wifiManager.startScan()// 开始扫描
+        const len = resultList.size()
+        let tmpItems = []
+        for (let i = 0; i < len; i++) {
+          let ssid = resultList.get(i).plusGetAttribute('SSID')
+          if (ssid && ssid !== '') { tmpItems.push({key: ssid, value: ssid}) }
+        }
+        this.wifiItems = tmpItems
       }
     },
     // store.commit('updateLoadingStatus', {isLoading: true})
 
     data () {
       return {
+        wifiItems: [],
         testItems: demoList,
         dataItems: [
           {id: 1, name: '客厅 ', icon: 'icon-sofa2'},
