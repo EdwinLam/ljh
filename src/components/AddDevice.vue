@@ -102,7 +102,7 @@
       },
       doRefreshWifi () {
         this.refreshWifiItems()
-        CommonUtil.sucToast(this, '读取电量成功', 500)
+        CommonUtil.sucToast(this, '刷新网络成功', 500)
       },
       refreshWifiItems () {
         const MainActivity = plus.android.runtimeMainActivity()
