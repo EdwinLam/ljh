@@ -76,9 +76,6 @@
 
   export default {
     mounted () {
-      setTimeout(() => {
-        this.refreshWifiItems()
-      }, 300)
     },
     components: {
       Swiper, Panel, DeviceList, Cell, Badge, Group, XButton, XSwitch, XInput, Selector
@@ -93,6 +90,9 @@
       }
     },
     activated () {
+      setTimeout(() => {
+        this.refreshWifiItems()
+      }, 300)
       this.$store.commit('updateHeader', {title: '增加设备', isShowBack: false})
     },
     methods: {
