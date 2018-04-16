@@ -14,6 +14,7 @@
   export default {
     name: 'app',
     async mounted () {
+      this.$store.dispatch('refreshWifiItems')
       // 登录状态更新用户信息
       if (AuthUtil.getPhone()) {
         const res = await AuthApi.login({phone: AuthUtil.getPhone(), password: AuthUtil.getPassword()})

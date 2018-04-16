@@ -61,6 +61,7 @@
   import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, Selector} from 'vux'
   import {DeviceList} from './common'
   import {CommonUtil} from '../utils'
+  import { mapState } from 'vuex'
 
   const imgList = [
     'http://placeholder.qiniudn.com/800x300/ffffff',
@@ -90,9 +91,6 @@
       }
     },
     activated () {
-      setTimeout(() => {
-        this.refreshWifiItems()
-      }, 300)
       this.$store.commit('updateHeader', {title: '增加设备', isShowBack: false})
     },
     methods: {
@@ -101,55 +99,18 @@
         this.$socket.emit('join', val)
       },
       doRefreshWifi () {
-        this.refreshWifiItems()
+        this.$store.dispatch('refreshWifiItems')
         CommonUtil.sucToast(this, '刷新网络成功', 500)
-      },
-      refreshWifiItems () {
-        let osName = ''
-        try {
-          osName = plus ? plus.os.name : ''
-        } catch (e) {
-          osName = ''
-        }
-        switch (osName) {
-          case 'Android':
-            const MainActivity = plus.android.runtimeMainActivity()
-            // 上下文
-            const Context = plus.android.importClass('android.content.Context')
-            // 导入WIFI管理 和 WIFI 信息 的class
-            plus.android.importClass('android.net.wifi.WifiManager')
-            plus.android.importClass('android.net.wifi.WifiInfo')
-            plus.android.importClass('android.net.wifi.ScanResult')
-            plus.android.importClass('java.util.ArrayList')
-            // 获取 WIFI 管理实例
-            const wifiManager = MainActivity.getSystemService(Context.WIFI_SERVICE)
-            // 获取当前连接WIFI的信息
-            const resultList = wifiManager.getScanResults()
-            wifiManager.setWifiEnabled(true)// 打开wifi,false为关闭
-            wifiManager.startScan()// 开始扫描
-            const len = resultList.size()
-            let tmpItems = []
-            for (let i = 0; i < len; i++) {
-              let ssid = resultList.get(i).plusGetAttribute('SSID')
-              if (ssid && ssid !== '') { tmpItems.push({key: ssid, value: ssid}) }
-            }
-            this.wifiItems = tmpItems
-            break
-          case 'iOS':
-            CommonUtil.errorToast(this, '暂不支持该平台添加设备', 2000)
-            break
-          default:
-            // 其它平台
-            CommonUtil.errorToast(this, '暂不支持该平台添加设备', 2000)
-            break
-        }
       }
     },
     // store.commit('updateLoadingStatus', {isLoading: true})
-
+    computed: {
+      ...mapState({
+        wifiItems: state => state.app.wifiItems
+      })
+    },
     data () {
       return {
-        wifiItems: [],
         testItems: demoList,
         dataItems: [
           {id: 1, name: '客厅 ', icon: 'icon-sofa2'},

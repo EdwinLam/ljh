@@ -171,7 +171,12 @@
 					"/static/js/manifest.57d671f7ae01abeb83e1.js",
 					"/static/js/app.8a267957b82168843b55.js",
 					"static/js/vendor.a33a087bca264586fe30.js",
-					"static/css/app.2ef5c63820dfe67488ff25eea824791c.css"
+					"static/css/app.2ef5c63820dfe67488ff25eea824791c.css",
+					"static/js/vendor.63ccf9733acb5e51e15f.js",
+					"static/js/app.5a0ab9261bcd57730adb.js",
+					"static/js/manifest.9e24c79a251b27265c0d.js",
+					"static/css/app.fbf437bf44444c47082e7c32b9d9601b.css",
+					"static/js/manifest.c836b3425b5db8532432.js"
 				],
 				"refer": [],
 				"priority": 0
