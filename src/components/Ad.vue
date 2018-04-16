@@ -1,6 +1,7 @@
 <style lang="less">
   @import '../css/main.less';
   .ad {
+    background-color: #EBF1F1;
     height: 100%;
     .main-container {
       height: 100%;
@@ -32,16 +33,19 @@
 <template>
   <div class="ad">
     <div class="main-container">
-      <div><img :src="AdUrl"/></div>
+      <div><img :src="AdUrl" style="width:100%"/></div>
+
     </div>
-    <div class="tip-icon">
+    <div class="tip-icon" @click="goToIndex">
       <div class="time">{{i}}s</div>
-      <div class="title">跳过</div>
+      <div class="title" >跳过</div>
     </div>
   </div>
 </template>
 <script>
   import {XInput, XButton, Group} from 'vux'
+  import openImage from '../assets/images/open.jpg'
+  let enterTimer
 
   export default {
     components: {
@@ -50,17 +54,24 @@
       Group
     },
     mounted: function () {
-      const enterTimer = window.setInterval(() => {
+      this.i = 3
+      enterTimer = window.setInterval(() => {
         if (--this.i === 0) {
-          window.clearInterval(enterTimer)
+          if (enterTimer) { window.clearInterval(enterTimer) }
           this.$router.push({name: 'Index'})
         }
       }, 1000)
-  },
+    },
+    methods: {
+      goToIndex: function () {
+        if (enterTimer) { window.clearInterval(enterTimer) }
+        this.$router.push({name: 'Index'})
+      }
+    },
     data () {
       return {
         i: 3,
-        AdUrl: 'http://placeholder.qiniudn.com/800x300/ffffff',
+        AdUrl: openImage,
         msg: 'Hello World!'
       }
     }
