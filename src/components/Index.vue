@@ -25,7 +25,7 @@
   <div>
     <div class="index">
 
-      <swiper :list="testItems" :height="'15rem'" :show-desc-mask="false"  dots-class="ljh-dots" dots-position="center"></swiper>
+      <swiper :list="testItems" :height="'15rem'" :show-desc-mask="false"  dots-class="ljh-dots" dots-position="center" auto></swiper>
 
        <device-list :list="dataItems"></device-list>
 
@@ -37,22 +37,16 @@
 <script>
   import {Swiper, Panel, Badge} from 'vux'
   import {DeviceList} from './common'
-  import ad3 from '@/assets/ad3.jpg'
-
-  import p1 from '@/assets/product/p1.jpg'
-  import p2 from '@/assets/product/p2.jpg'
-  import p3 from '@/assets/product/p3.jpg'
-  import p4 from '@/assets/product/p4.jpg'
-  import p5 from '@/assets/product/p5.jpg'
-  import p6 from '@/assets/product/p5.jpg'
+  import ad1 from '@/assets/images/ad1.jpg'
+  import ad2 from '@/assets/images/ad2.jpg'
+  import ad3 from '@/assets/images/ad3.jpg'
+  import ad4 from '@/assets/images/ad4.jpg'
 
   const imgList = [
+    ad1,
+    ad2,
     ad3,
-    p2,
-    p3,
-    p4,
-    p5,
-    p6
+    ad4
   ]
 
   const demoList = imgList.map((one, index) => ({
