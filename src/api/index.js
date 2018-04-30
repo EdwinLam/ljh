@@ -1,5 +1,8 @@
 import AuthApi from './AuthApi'
 import DeviceApi from './DeviceApi'
+import MemberApi from './MemberApi'
+import HomeApi from './HomeApi'
+
 export {
-  AuthApi, DeviceApi
+  AuthApi, DeviceApi, MemberApi, HomeApi
 }

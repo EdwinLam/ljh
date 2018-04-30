@@ -76,6 +76,11 @@ export const appRouter = [
         component: () => import('@/components/Index')
       },
       {
+        path: 'member',
+        name: 'Member',
+        component: () => import('@/components/Member')
+      },
+      {
         path: 'device',
         name: 'Device',
         component: () => import('@/components/Device')

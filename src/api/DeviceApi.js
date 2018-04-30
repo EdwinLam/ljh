@@ -1,4 +1,5 @@
 import fetch from './fetch'
+import qs from 'qs'
 
 export default class AuthApi {
   static list ({home_id}) {
@@ -31,91 +32,55 @@ export default class AuthApi {
             action: 'on'
           }]
         },
-        {
-          device_id: '123',
-          type: '123',
-          name: '插座C',
-          state: 'on',
-          data: 100,
-          tasks: [{
-            start: '10:12',
-            end: '10:11',
-            repeat: '1',
-            action: 'on'
-          }]
-        }
+          {
+            device_id: '123',
+            type: '123',
+            name: '插座C',
+            state: 'on',
+            data: 100,
+            tasks: [{
+              start: '10:12',
+              end: '10:11',
+              repeat: '1',
+              action: 'on'
+            }]
+          }
         ]
       })
     })
-    // const params = {phone, password, home_name, code}
-    // return fetch.get('/device/list', params)
+    // const data = {home_id}
+    // return fetch.post('/api/v1/device/list', qs.stringify(data))
   }
   static add ({ home_id, device_id, device_name, device_type }) {
     const data = ({home_id, device_id, device_name, device_type})
-    return fetch.post('/device/add', data)
+    return fetch.post('/api/v1/device/add', qs.stringify(data))
   }
   static del ({home_id, device_id}) {
-    return new Promise(resolve => {
-      resolve({
-        code: 200,
-        message: '登录成功',
-        data: 50
-      })
-    })
-    //
-    // const data = { home_id, device_id }
-    // return fetch.post('/device/delete', data)
+    const data = { home_id, device_id }
+    return fetch.post('/api/v1/device/delete', qs.stringify(data))
   }
   static switch ({home_id, device_id, param}) {
-    return new Promise(resolve => {
-      resolve({
-        code: 200,
-        message: '登录成功',
-        data: 50
-      })
-    })
-    // const data = {home_id, device_id, param}
-    // return fetch.post('/device/switch', data)
+    const data = {home_id, device_id, param}
+    return fetch.post('/api/v1/device/switch', qs.stringify(data))
   }
   static meter ({home_id, device_id}) {
-    return new Promise(resolve => {
-      resolve({
-        code: 200,
-        message: '登录成功',
-        data: 50
-      })
-    })
-    // const params = {home_id, device_id}
-    // return fetch.get('/device/meters', params)
+    const data = {home_id, device_id}
+    return fetch.get('/api/v1/device/device/meters', qs.stringify(data))
   }
   static meters ({home_id, device_id, start_day, end_day}) {
-    const params = {home_id, device_id, start_day, end_day}
-    return fetch.get('/device/meters', params)
+    const data = {home_id, device_id, start_day, end_day}
+    return fetch.get('/api/v1/device/meters', qs.stringify(data))
   }
   static taskList ({home_id, device_id}) {
-    const params = {home_id, device_id}
-    return fetch.get('/device/task/list', params)
+    const data = {home_id, device_id}
+    return fetch.get('/api/v1/device/task/list', qs.stringify(data))
   }
   static addTask ({home_id, device_id, start, end, repeat, action}) {
-    return new Promise(resolve => {
-      resolve({
-        code: 200,
-        message: '登录成功',
-        data: 50
-      })
-    })
     const data = {home_id, device_id, start, end, repeat, action}
-    return fetch.post('/device/task/list', data)
+    return fetch.post('/api/v1/device/task/list', qs.stringify(data))
   }
   static delTask ({home_id, device_id, start, end, repeat}) {
-    return new Promise(resolve => {
-      resolve({
-        code: 200,
-        message: '登录成功',
-        data: 50
-      })
-    })
-    // const data = {home_id, device_id, start, end, repeat}
-    // return fetch.post('/device/task/del', data)
+    const data = {home_id, device_id, start, end, repeat}
+    return fetch.post('/api/v1/device/task/del', qs.stringify(data))
   }
 }

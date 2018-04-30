@@ -10,7 +10,6 @@
   import { mapState } from 'vuex'
   import {AuthUtil, CommonUtil} from './utils'
   import {AuthApi} from './api'
-
   export default {
     name: 'app',
     async mounted () {

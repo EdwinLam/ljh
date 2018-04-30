@@ -1,6 +1,15 @@
-import { PHONE, PASSWORD } from './Constants'
+import { PHONE, PASSWORD, USER_INFO } from './Constants'
 import StorageUtil from './StorageUtil'
 export default class AuthUtil {
+  static getUserInfo () {
+    return StorageUtil.getStorage(USER_INFO)
+  }
+  static setUserInfo (userInfo) {
+    return StorageUtil.setStorage(USER_INFO, userInfo)
+  }
+  static removeUserInfo () {
+    return StorageUtil.removeStorage(USER_INFO)
+  }
   static getPhone () {
     return StorageUtil.getStorage(PHONE)
   }

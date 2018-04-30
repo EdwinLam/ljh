@@ -51,11 +51,11 @@
     <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="53px">
       <x-header slot="header" :title="title" :left-options="{showBack: isShowBack}" style="width:100%;position:absolute;left:0;top:0;z-index:100;"> <slot name="left"></slot>
       </x-header>
-      <transition :name="viewTransition" :css="!!direction">
+      <!--<transition :name="viewTransition" :css="!!direction">-->
         <keep-alive>
         <router-view class="router-view"></router-view>
         </keep-alive>
-      </transition>
+      <!--</transition>-->
       <tabbar slot="bottom" class="tabbar-container">
         <tabbar-item :link="{path:'/main/index'}" :selected="route.path === '/main/index'">
           <i slot="icon" class="iconfont icon-home"></i>

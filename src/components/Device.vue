@@ -51,7 +51,7 @@
     <scroller lock-x scrollbar-y use-pulldown :height="fixHeight"  @on-pulldown-loading="refresh" v-model="status" ref="scroller">
       <div class="item-wrap">
         <divider v-show="devices.length===0">暂无数据</divider>
-        <div sol class="item" v-for="(el,index) in devices">
+        <div class="item" v-for="(el,index) in devices">
         <group>
           <div slot="title" style="text-align: right">
             <span class="vux-close" @click="delItem(index)"></span>
@@ -83,7 +83,7 @@
   import { mapState } from 'vuex'
   import { DeviceApi } from '../api'
   import {Panel, Cell, Badge, Group, XButton, XSwitch, Datetime, Scroller, Spinner, Divider} from 'vux'
-  import {CommonUtil} from '../utils'
+  import {CommonUtil, AuthUtil} from '../utils'
 
   export default {
     name: 'Device',
@@ -180,8 +180,8 @@
       }
     },
     computed: {
+      userInfo: () => AuthUtil.getUserInfo(),
       ...mapState({
-        userInfo: state => state.user.info,
         devices: state => state.device.items
       })
     },

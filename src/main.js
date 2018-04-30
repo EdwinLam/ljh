@@ -5,13 +5,13 @@ import FastClick from 'fastclick'
 import App from './App'
 import {router} from './router/index'
 import store from './store'
-import { ToastPlugin, ConfirmPlugin  } from 'vux'
+import { ToastPlugin, ConfirmPlugin } from 'vux'
 import { sync } from 'vuex-router-sync'
 import VueSocketio from 'vue-socket.io'
 import './assets/fonts/iconfont.css'
 Vue.use(ToastPlugin)
 Vue.use(ToastPlugin, {position: 'top'})
-// Vue.use(VueSocketio, process.env.SOCKET_URL)
+// Vue.use(VueSocketio, 'http://localhost:3000')
 Vue.use(ConfirmPlugin)
 FastClick.attach(document.body)
 

@@ -41,11 +41,12 @@
       <div class="form-container">
         <group>
           <x-input  placeholder="手机号码" class="input-item" required v-model="phone"></x-input>
+          <x-input  placeholder="用户名称" class="input-item" required v-model="usr_name"></x-input>
           <x-input  placeholder="家庭名称" class="input-item" required v-model="home_name"></x-input>
           <x-input  placeholder="密码" class="input-item" required v-model="password" type="password"></x-input>
         </group>
-        <x-button type="primary" class="next-step-btn" @click.native="nextStep">下一步</x-button>
-        <div class="message-tip">注册即同意<span class="user-permission">用户协议与隐私条款</span></div>
+        <x-button type="primary" class="next-step-btn" @click.native="register">注册</x-button>
+        <!--<div class="message-tip">注册即同意<span class="user-permission">用户协议与隐私条款</span></div>-->
       </div>
 
     </div>
@@ -54,6 +55,8 @@
 <script>
   import {XInput, XButton, XHeader, Group} from 'vux'
   import {CommonUtil} from '../utils'
+  import {AuthApi} from '../api'
+
   export default {
     components: {
       XInput,
@@ -62,6 +65,30 @@
       Group
     },
     methods: {
+      async register () {
+        if (this.usr_name === '') {
+          CommonUtil.warnToast(this, '用户名不能为空', 1000)
+          return
+        }
+        if (this.phone === '') {
+          CommonUtil.warnToast(this, '手机号不能为空', 1000)
+          return
+        }
+        if (this.home_name === '') {
+          CommonUtil.warnToast(this, '家庭名称不能为空', 1000)
+          return
+        }
+        if (this.password === '') {
+          CommonUtil.warnToast(this, '密码不能为空', 1000)
+          return
+        }
+        const res = await AuthApi.register({phone: this.phone, password: this.password, home_name: this.home_name, usr_name: this.usr_name})
+        if (CommonUtil.isSuccess(res.code)) {
+          CommonUtil.sucToast(this, '注册成功', 100)
+        } else {
+          CommonUtil.warnToast(this, res.msg, 100)
+        }
+      },
       nextStep () {
         if (!this.phone) {
           CommonUtil.warnToast(this, '手机不能为空', 1000)
@@ -73,6 +100,7 @@
     },
     data () {
       return {
+        usr_name: '',
         phone: '',
         home_name: '',
         password: ''

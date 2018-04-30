@@ -32,25 +32,25 @@
   <div class="device-add">
     <div class="main-container">
     <group>
-      <selector placeholder="请选择设备SSID"  title="SSID" name="district" :options="wifiItems" >
+      <selector placeholder="请选择设备SSID"  title="SSID" name="district" :options="wifiItems" v-model="ssid">
       </selector>
-      <x-input type="password" title="密码" placeholder="请输入密码">
+      <x-input type="password" title="密码" placeholder="请输入密码" v-model="password">
         <i class="iconfont icon-suo btn-icon" slot="label">&nbsp;密码</i>
       </x-input>
-      <x-input title="设备名称" placeholder="请输入设备名称">
+      <x-input title="设备名称" placeholder="请输入设备名称" v-model="device_name">
         <i class="iconfont icon-ic_devices_other" slot="label">&nbsp;设备名称&nbsp;</i>
       </x-input>
-      <cell title="设备id" value="123"></cell>
-      <cell title="设备类型"></cell>
-      <cell title="设备描述" value="0"></cell>
+      <cell title="设备id" :value="device_id"></cell>
+      <cell title="设备类型" :value="device_type"></cell>
+      <cell title="设备描述" :value="device_description"></cell>
       <cell class="vux-tap-active weui-cell_acces">
         <div slot="child" class="textBtn" @click="doRefreshWifi">刷新网络</div>
       </cell>
       <cell class="vux-tap-active weui-cell_acces">
-        <div slot="child" class="textBtn">配置网络</div>
+        <div slot="child" class="textBtn" @click="getDeviceConfig">配置网络</div>
       </cell>
       <cell class="vux-tap-active weui-cell_acces">
-        <div slot="child" class="textBtn" @click="clickButton">加入我的设备</div>
+        <div slot="child" class="textBtn">加入我的设备</div>
       </cell>
     </group>
     </div>
@@ -60,20 +60,9 @@
 <script>
   import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, Selector} from 'vux'
   import {DeviceList} from './common'
-  import {CommonUtil} from '../utils'
+  import {CommonUtil, UdpUtil, AuthUtil} from '../utils'
   import { mapState } from 'vuex'
-
-  const imgList = [
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff',
-    'http://placeholder.qiniudn.com/800x300/ffffff'
-  ]
-
-  const demoList = imgList.map((one, index) => ({
-    url: 'javascript:',
-    img: one
-  }))
+  import { DeviceApi } from '../api'
 
   export default {
     mounted () {
@@ -81,44 +70,82 @@
     components: {
       Swiper, Panel, DeviceList, Cell, Badge, Group, XButton, XSwitch, XInput, Selector
     },
-    sockets: {
-      connect: function (val) {
-        console.log(val)
-        this.id = this.$socket.id
-      },
-      customEmit: function (val) {
-        console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)' + val)
-      }
-    },
     activated () {
       this.$store.commit('updateHeader', {title: '增加设备', isShowBack: false})
     },
     methods: {
-      clickButton: function (val) {
-        // $socket is socket.io-client instance
-        this.$socket.emit('join', val)
+      async save () {
+        if (this.device_id === '') {
+          CommonUtil.warnToast(this, '设备id不能为空')
+          return
+        }
+        if (this.device_name === '') {
+          CommonUtil.warnToast(this, '设备名称不能为空')
+          return
+        }
+        await DeviceApi.add({home_id: this.userInfo.home_id, device_id: this.device_id, device_name: this.device_name, device_type: this.device_type})
+        CommonUtil.sucToast(this, '添加成功', 1000)
+      },
+      getDeviceConfig: function () {
+        var ctx = this
+        if (this.ssid === '') {
+          CommonUtil.warnToast(this, 'ssid不能为空')
+          return
+        }
+        if (this.password === '') {
+          CommonUtil.warnToast(this, 'ssid密码不能为空')
+          return
+        }
+        this.$vux.confirm.show({
+          // 组件除show外的属性
+          async onCancel () {},
+          async onConfirm () {
+            CommonUtil.openLoading()
+            setTimeout(() => {
+              const msg = ctx.ssid + '&&' + ctx.password + '&&' + '123'
+              new UdpUtil().sendMsg({
+                port: 9001,
+                msg,
+                callbackFunction: (data) => {
+                  console.log(data)
+                  if (data != null) {
+                    CommonUtil.sucToast(ctx, '配置设备成功', 1000)
+                    const deviceInfo = JSON.parse(data)
+                    ctx.device_id = deviceInfo.device_id
+                    ctx.device_type = deviceInfo.device_type
+                    ctx.device_description = deviceInfo.device_description
+                  } else {
+                    CommonUtil.errorToast(ctx, '配置设备失败，请检查网络', 1000)
+                  }
+                  CommonUtil.closeLoading()
+                }
+              })
+            }, 1000)
+          },
+          title: '操作提示',
+          content: '先长按设备开关，直至led快速闪烁进入配置状态,然后点击确认'
+        })
       },
       doRefreshWifi () {
         this.$store.dispatch('refreshWifiItems')
-        CommonUtil.sucToast(this, '刷新网络成功', 500)
+        CommonUtil.sucToast(this, '刷新网络成功', 1000)
       }
     },
     // store.commit('updateLoadingStatus', {isLoading: true})
     computed: {
+      userInfo: () => AuthUtil.getUserInfo(),
       ...mapState({
         wifiItems: state => state.app.wifiItems
       })
     },
     data () {
       return {
-        testItems: demoList,
-        dataItems: [
-          {id: 1, name: '客厅 ', icon: 'icon-sofa2'},
-          {id: 2, name: '餐厅 ', icon: 'icon-canzhuo'},
-          {id: 3, name: '厨房 ', icon: 'icon-chufangwujinanzhuang'},
-          {id: 4, name: '洗手间 ', icon: 'icon-hekriconqingjingyushicesuo'},
-          {id: 5, name: '更多 ', icon: 'icon-star'}
-        ]
+        ssid: '',
+        password: '',
+        device_name: '',
+        device_id: '',
+        device_type: '',
+        device_description: ''
       }
     }
   }

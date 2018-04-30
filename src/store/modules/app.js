@@ -1,6 +1,7 @@
 import {CommonUtil} from '../../utils'
 const shouldUseTransition = !/transition=none/.test(location.href)
 let wifiManager = null
+let upd = null
 const app = {
   state: {
     demoScrollTop: 0,

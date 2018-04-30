@@ -4,6 +4,6 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  BASE_API: '"http://rrt.dev.qky100.com"',
+  BASE_API: '"http://wap.ljhlink.com"',
   SOCKET_URL:'"http://localhost:3000"',
 })
