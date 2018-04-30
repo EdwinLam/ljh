@@ -8,12 +8,14 @@ server.on('message', function (msg, rinfo) {
     device_description: '普通的设置'
   }
   console.log(rinfo.address)
-  console.log()
+  console.log('已接收客户端发送的数据：' + msg)
+  console.log('客户端地址信息为%j', rinfo)
+  var buf = new Buffer('确认信息：' + msg)
   var buf = new Buffer(JSON.stringify(info))
   console.log(JSON.stringify(info))
   console.log(JSON.stringify(rinfo))
   // server.sent(Buffer,offset,length,port,address,[callback])
-  server.send(buf, 0, buf.length, rinfo.port, rinfo.address)
+  server.send(buf, 0, buf.length, 9000, rinfo.address)
 })
 // 当socket对象开始监听指定的端口和地址时，触发socket端口的listening事件
 /* server.on('listening',function () {

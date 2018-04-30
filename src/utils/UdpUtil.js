@@ -6,13 +6,13 @@ export default class UDP {
     this.String = plus.android.importClass('java.lang.String')
   }
 
-  sendMsg ({port, msg, callbackFunction}) {
-    let ds = new this.DatagramSocket()
+  sendMsg ({msg, callbackFunction}) {
+    let ds = new this.DatagramSocket(9000)
     ds.setSoTimeout(1000)
     let messageReceived = false
     let data = new this.String(msg).getBytes('utf-8')
     let iAdd = new this.InetAddress()
-    let dp = new this.DatagramPacket(data, data.length, iAdd.getByName('255.255.255.255'), port)
+    let dp = new this.DatagramPacket(data, data.length, iAdd.getByName('255.255.255.255'), 9001)
     let repeatCount = 0
     let result = {}
     while (!messageReceived) {
@@ -29,6 +29,7 @@ export default class UDP {
         let dpData = new this.String(dp2.getData())
         result = dpData.trim()
         messageReceived = true
+        ds.close()
       } catch (e) {
         console.log(e)
         repeatCount++

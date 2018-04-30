@@ -1,6 +1,8 @@
 var dgram = require('dgram');
 var mess = new Buffer('您好');
 var client = dgram.createSocket('udp4');
+client.bind(9000)
+
 client.send(mess,0,mess.length,9001,'192.168.31.42',function (err, bytes) {
   if(err)
     console.log('发送数据失败');
@@ -17,3 +19,4 @@ client.on('message',function (msg, rinfo) {
 client.on('close',function () {
   console.log('socket端口被关闭');
 });
+

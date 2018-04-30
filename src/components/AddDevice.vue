@@ -104,7 +104,6 @@
             setTimeout(() => {
               const msg = ctx.ssid + '&&' + ctx.password + '&&' + '123'
               new UdpUtil().sendMsg({
-                port: 9001,
                 msg,
                 callbackFunction: (data) => {
                   console.log(data)
@@ -120,7 +119,7 @@
                   CommonUtil.closeLoading()
                 }
               })
-            }, 1000)
+            }, 500)
           },
           title: '操作提示',
           content: '先长按设备开关，直至led快速闪烁进入配置状态,然后点击确认'

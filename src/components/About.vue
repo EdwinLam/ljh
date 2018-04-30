@@ -2,6 +2,7 @@
   @import '../css/main.less';
     .about{
       margin-top: 1rem;
+      padding-bottom: 2rem;
       height: 100%;
       /*background-color: #fbf9fe;*/
       .vux-badge{
