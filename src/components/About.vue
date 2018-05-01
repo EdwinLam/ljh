@@ -36,7 +36,7 @@
           </x-input>
           <x-button type="primary" class="jt-btn" @click.native="updateHome">修改家庭描述</x-button>
           <divider>系统设置</divider>
-          <!--<x-button type="primary" class="weiui-btn" @click.native="member">成员管理</x-button>-->
+          <x-button type="primary" class="weiui-btn" @click.native="member">成员管理</x-button>
           <x-button type="primary" class="weiui-btn" @click.native="logout">登出</x-button>
         </group>
       </card>
