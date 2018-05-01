@@ -16,7 +16,6 @@ const mutations = {
     state.items.splice(index, 1)
   },
   addTask (state, task) {
-    console.log(state.curItem.tasks)
     state.curItem.tasks.push(task)
   },
   delTask (state, index) {

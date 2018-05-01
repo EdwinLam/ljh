@@ -82,11 +82,14 @@
           CommonUtil.warnToast(this, '密码不能为空', 1000)
           return
         }
+        CommonUtil.openLoading()
         const res = await AuthApi.register({phone: this.phone, password: this.password, home_name: this.home_name, usr_name: this.usr_name})
+        CommonUtil.closeLoading()
         if (CommonUtil.isSuccess(res.code)) {
-          CommonUtil.sucToast(this, '注册成功', 100)
+          CommonUtil.sucToast(this, '注册成功', 1000)
+          this.$router.push({name: 'Login'})
         } else {
-          CommonUtil.warnToast(this, res.msg, 100)
+          CommonUtil.warnToast(this, res.msg, 1000)
         }
       },
       nextStep () {

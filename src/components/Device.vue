@@ -8,6 +8,9 @@
     .vux-badge{
       background-color: @theme-color;
     }
+    .task-btn{
+      margin-top: 1rem;
+    }
     .item-wrap{
       padding:0rem 0rem .1rem;
       .item{
@@ -128,27 +131,36 @@
         CommonUtil.openLoading()
         const res = await DeviceApi.list({home_id: this.userInfo.home_id})
         CommonUtil.closeLoading()
-        res.devices = res.devices.map(el => Object.assign({isOn: el.state === 'on'}, el))
+        res.devices = res.data.map(el => Object.assign({isOn: el.state === 'on'}, el))
         this.$store.commit('updateDevices', res.devices)
       },
       async refreshMeter (index) {
         const el = this.devices[index]
         CommonUtil.openLoading()
-        const res = await DeviceApi.meter({home_id: this.userInfo.home_id, device_id: el.id})
-        CommonUtil.closeLoading()
-        if (CommonUtil.isSuccess(res.code)) {
-          this.$store.commit('refreshMeter', {data: res.data, index})
-          CommonUtil.sucToast(this, '读取电量成功', 500)
+        try {
+          const res = await DeviceApi.meter({home_id: this.userInfo.home_id, device_id: el.device_id})
+          CommonUtil.closeLoading()
+          if (CommonUtil.isSuccess(res.code)) {
+            this.$store.commit('refreshMeter', {data: res.data, index})
+            CommonUtil.sucToast(this, '读取电量成功', 500)
+          } else {
+            CommonUtil.warnToast(res.msg)
+          }
+        } catch (e) {
+          CommonUtil.closeLoading()
+          CommonUtil.warnToast('设备连接超时')
         }
       },
       async switchDevice (index) {
         const el = this.devices[index]
         CommonUtil.openLoading()
-        const res = await DeviceApi.switch({home_id: this.userInfo.home_id, device_id: el.id, param: el.isOn ? 'on' : 'off'})
+        const res = await DeviceApi.switch({home_id: this.userInfo.home_id, device_id: el.device_id, param: el.isOn ? 'on' : 'off'})
         CommonUtil.closeLoading()
         if (CommonUtil.isSuccess(res.code)) {
           this.$store.commit('switchDevice', {data: el.isOn ? 'on' : 'off', index})
           CommonUtil.sucToast(this, '设备' + el.name + '已切换成[' + (el.isOn ? '开' : '关') + ']状态', 500)
+        } else {
+          CommonUtil.warnToast(data)
         }
       },
       openTimeSet () {

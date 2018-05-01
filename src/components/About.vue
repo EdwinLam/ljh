@@ -15,7 +15,7 @@
         }
         border-radius: .4rem;
         margin:5rem 1rem 1rem;
-        padding: 1rem 1rem 1rem;
+        padding: 1rem 1rem 4rem;
       }
       .jt-btn{
         background-color: @theme-color;
@@ -32,11 +32,11 @@
           <cell title="智能插座app"></cell>
           <cell title="V1.0"></cell>
           <cell title="2018©联家汇智能科技"></cell>
-          <x-input title="家庭描述" class="weui-vcode" :value="homeName" v-model="homeName">
+          <x-input title="家庭描述" class="weui-vcode" :value="homeName" v-model="homeName">npm
           </x-input>
           <x-button type="primary" class="jt-btn" @click.native="updateHome">修改家庭描述</x-button>
           <divider>系统设置</divider>
-          <x-button type="primary" class="weiui-btn" @click.native="member">成员管理</x-button>
+          <!--<x-button type="primary" class="weiui-btn" @click.native="member">成员管理</x-button>-->
           <x-button type="primary" class="weiui-btn" @click.native="logout">登出</x-button>
         </group>
       </card>

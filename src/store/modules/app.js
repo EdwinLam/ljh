@@ -44,6 +44,7 @@ const app = {
       commit({type: 'updateDemoPosition', top: top})
     },
     refreshWifiItems ({commit}) {
+      var ctx = this
       setTimeout(() => {
         let osName = ''
         try {
@@ -82,11 +83,11 @@ const app = {
             commit('updateWifiItems', tmpItems)
             break
           case 'iOS':
-            CommonUtil.errorToast(this, '暂不支持该平台添加设备', 2000)
+            // CommonUtil.errorToast(ctx, '暂不支持该平台添加设备', 2000)
             break
           default:
             // 其它平台
-            CommonUtil.errorToast(this, '暂不支持该平台添加设备', 2000)
+            // CommonUtil.errorToast(ctx, '暂不支持该平台添加设备', 2000)
             break
         }
       }, 300)

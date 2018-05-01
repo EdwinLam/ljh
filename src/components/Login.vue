@@ -17,7 +17,7 @@
               <i class="iconfont icon-suo btn-icon" slot="label"></i>
             </x-input>
             <x-button type="primary" class="login-btn" @click.native="login">登&nbsp;录</x-button>
-            <div class="register-btn">注册</div>
+            <div class="register-btn" @click="register">注册</div>
           </group>
         </flexbox-item>
       </flexbox>
@@ -53,7 +53,12 @@
           })
           CommonUtil.sucToast(this, '登录成功', 1000)
           this.$router.push({name: 'Index'})
+        } else {
+          CommonUtil.warnToast(this, res.msg)
         }
+      },
+      register () {
+        this.$router.push({name: 'Register'})
       }
     },
     async mounted () {

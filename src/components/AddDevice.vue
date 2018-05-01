@@ -50,7 +50,7 @@
         <div slot="child" class="textBtn" @click="getDeviceConfig">配置网络</div>
       </cell>
       <cell class="vux-tap-active weui-cell_acces">
-        <div slot="child" class="textBtn">加入我的设备</div>
+        <div slot="child" class="textBtn" @click="save">加入我的设备</div>
       </cell>
     </group>
     </div>

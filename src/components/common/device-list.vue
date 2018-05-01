@@ -141,7 +141,7 @@
           setTimeout(() => {
             this.$refs.scroller.donePullup()
           }, 10)
-        }, 2000)
+        }, 0)
       },
       refresh () {
         setTimeout(() => {
@@ -152,7 +152,7 @@
               this.$refs.scroller.enablePullup()
             }, 10)
           })
-        }, 2000)
+        }, 0)
       },
       initItems () {
         this.deviceItems = this.list
