@@ -12,7 +12,7 @@ export default class AuthApi {
   }
   static del ({home_id, device_id}) {
     const data = { home_id, device_id }
-    return fetch.post('/api/v1/device/delete', qs.stringify(data))
+    return fetch.post('/api/v1/device/del', qs.stringify(data))
   }
   static switch ({home_id, device_id, param}) {
     const data = {home_id, device_id, param}

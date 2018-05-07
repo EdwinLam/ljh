@@ -102,7 +102,7 @@
           async onConfirm () {
             CommonUtil.openLoading()
             setTimeout(() => {
-              const msg = ctx.ssid + '&&' + ctx.password + '&&' + '123'
+              const msg = ctx.ssid + '&&' + ctx.password + '&&' + ctx.userInfo.home_id
               new UdpUtil().sendMsg({
                 msg,
                 callbackFunction: (data) => {

@@ -76,16 +76,17 @@
       },
       async delTask (index) {
         const el = this.tasks[index]
+        console.log(el)
         const ctx = this
         this.$vux.confirm.show({
           // 组件除show外的属性
           async onCancel () {},
           async onConfirm () {
             CommonUtil.openLoading()
-            await DeviceApi.delTask({home_id: ctx.userInfo.home_id, task_name: el.task_name})
+            await DeviceApi.delTask({home_id: ctx.userInfo.home_id, task_name: el.name})
             CommonUtil.closeLoading()
-            this.$emit('delTask', index)
-            CommonUtil.sucToast(this, '删除成功', 1000)
+            ctx.tasks.splice(index, 1)
+            CommonUtil.sucToast(ctx, '删除成功', 1000)
           },
           title: '操作提示',
           content: '是否确定操作？'

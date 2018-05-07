@@ -119,8 +119,8 @@
       resetParam () {
         this.addTaskEl = {
           task_name: '',
-          start: '8:00',
-          end: '8:30',
+          start: '08:00',
+          end: '08:30',
           repeat: false,
           actions: []
         }
@@ -143,8 +143,8 @@
         selectedDevice: [],
         addTaskEl: {
           task_name: '',
-          start: '8:00',
-          end: '8:30',
+          start: '08:00',
+          end: '08:30',
           repeat: false,
           actions: []
         }
