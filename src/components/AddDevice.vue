@@ -85,6 +85,7 @@
         }
         await DeviceApi.add({home_id: this.userInfo.home_id, device_id: this.device_id, device_name: this.device_name, device_type: this.device_type})
         CommonUtil.sucToast(this, '添加成功', 1000)
+        await this.$store.dispatch('getDevices', {home_id: this.userInfo.home_id})
       },
       getDeviceConfig: function () {
         var ctx = this
@@ -106,7 +107,6 @@
               new UdpUtil().sendMsg({
                 msg,
                 callbackFunction: (data) => {
-                  console.log(data)
                   if (data != null) {
                     CommonUtil.sucToast(ctx, '配置设备成功', 1000)
                     const deviceInfo = JSON.parse(data)

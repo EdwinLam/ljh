@@ -3,7 +3,7 @@ var dgrm = require('dgram')
 var server = dgrm.createSocket('udp4')// udp4为指定UDP通信的协议类型
 server.on('message', function (msg, rinfo) {
   var info = {
-    device_id: '123456789012',
+    device_id: new Date().getTime(),
     device_type: '1',
     device_description: '普通的设置'
   }

@@ -1,9 +1,18 @@
+import {CommonUtil} from '../../utils'
+import {DeviceApi} from '../../api'
+
 const state = {
   items: [],
   curItem: []
 }
 const actions = {
-
+  async getDevices ({commit}, {home_id}) {
+    // CommonUtil.openLoading()
+    const res = await DeviceApi.list({home_id})
+    // CommonUtil.closeLoading()
+    res.devices = res.data.map(el => Object.assign({isOn: el.state === 'on'}, el))
+    commit('updateDevices', res.devices)
+  }
 }
 const mutations = {
   setCurItems (state, index) {

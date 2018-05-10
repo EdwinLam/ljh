@@ -168,8 +168,10 @@
       },
       loadMore () {},
       async refresh () {
+        const ctx = this
         this.$nextTick(() => {
-          setTimeout(() => {
+          setTimeout(async() => {
+            await ctx.$store.dispatch('getDevices', {home_id: ctx.userInfo.home_id})
             this.$refs.scroller.donePulldown()
           }, 10)
         })

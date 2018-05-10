@@ -34,7 +34,7 @@
   </div>
 </template>
 <script>
-  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader, Popup, Datetime, TransferDom, Selector, CheckIcon, PopupPicker } from 'vux'
+  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader, Popup, Datetime, TransferDom, Selector, CheckIcon, PopupPicker} from 'vux'
   import { mapState } from 'vuex'
   import {DeviceApi} from '../api'
   import {AuthUtil, CommonUtil} from '../utils'

@@ -76,7 +76,6 @@
       },
       async delTask (index) {
         const el = this.tasks[index]
-        console.log(el)
         const ctx = this
         this.$vux.confirm.show({
           // 组件除show外的属性
