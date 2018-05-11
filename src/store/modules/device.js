@@ -10,7 +10,7 @@ const actions = {
     // CommonUtil.openLoading()
     const res = await DeviceApi.list({home_id})
     // CommonUtil.closeLoading()
-    res.devices = res.data.map(el => Object.assign({isOn: false}, el))
+    res.devices = res.data.map(el => Object.assign({isOn: false, state: ''}, el))
     commit('updateDevices', res.devices)
   }
 }
@@ -35,11 +35,11 @@ const mutations = {
     obj.data = data
     Vue.set(state.items, index, obj)
   },
-  switchDevice (state, {index, data, isOn}) {
+  switchDevice (state, {index,isOn}) {
     let obj = state.items[index]
-    obj.state = data
+    obj.state = isOn ? 'on' : 'off'
     obj.isOn = isOn
-    state.items[index].state = data
+    Vue.set(state.items, index, obj)
   }
 }
 const user = {

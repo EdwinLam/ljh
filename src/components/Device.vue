@@ -108,7 +108,6 @@
       },
       delItem (index) {
         const el = this.devices[index]
-        console.log(el)
         const ctx = this
         // prompt形式调用
         this.$vux.confirm.show({
@@ -141,7 +140,6 @@
           CommonUtil.closeLoading()
           if (CommonUtil.isSuccess(res.code)) {
             this.$store.commit('refreshMeter', {data: res.data, index})
-            console.log(res.data)
             CommonUtil.sucToast(this, '读取电量成功', 500)
           } else {
             CommonUtil.warnToast(res.msg)
@@ -152,12 +150,13 @@
         }
       },
       async switchDevice (index) {
+        if (this.isLoading) return
         const el = this.devices[index]
         CommonUtil.openLoading()
         const res = await DeviceApi.switch({ home_id: this.userInfo.home_id, device_id: el.device_id, param: el.isOn ? 'off' : 'on' })
         CommonUtil.closeLoading()
         if (CommonUtil.isSuccess(res.code)) {
-          this.$store.commit('switchDevice', {data: el.isOn ? 'off' : 'on', index, isOn: el.isOn})
+          this.$store.commit('switchDevice', {index, isOn: el.isOn})
           CommonUtil.sucToast(this, '设备' + el.name + '已切换成[' + (el.isOn ? '开' : '关') + ']状态', 500)
         } else {
           CommonUtil.warnToast('开关设置失败', 500)
@@ -169,10 +168,12 @@
       loadMore () {},
       async refresh () {
         const ctx = this
+        this.isLoading = true
         this.$nextTick(() => {
           setTimeout(async() => {
             await ctx.$store.dispatch('getDevices', {home_id: ctx.userInfo.home_id})
             this.$refs.scroller.donePulldown()
+            ctx.isLoading = false
           }, 10)
         })
       },
@@ -201,6 +202,7 @@
     },
     data () {
       return {
+        isLoading: false,
         fixHeight: '0',
         status: {
           pullupStatus: 'default',
