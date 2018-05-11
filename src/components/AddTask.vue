@@ -35,12 +35,12 @@
 </template>
 <script>
   import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader, Popup, Datetime, TransferDom, Selector, CheckIcon, PopupPicker} from 'vux'
-  import { mapState } from 'vuex'
   import {DeviceApi} from '../api'
   import {AuthUtil, CommonUtil} from '../utils'
   let deviceMap = {}
   export default {
-    activated () {
+    name: 'add-task',
+    mounted () {
       this.getDevices()
       this.resetParam()
       this.$store.commit('updateHeader', {title: '添加任务', isShowBack: true})

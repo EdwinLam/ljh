@@ -1,6 +1,6 @@
 import {CommonUtil} from '../../utils'
 import {DeviceApi} from '../../api'
-
+import Vue from 'vue'
 const state = {
   items: [],
   curItem: []
@@ -10,7 +10,7 @@ const actions = {
     // CommonUtil.openLoading()
     const res = await DeviceApi.list({home_id})
     // CommonUtil.closeLoading()
-    res.devices = res.data.map(el => Object.assign({isOn: el.state === 'on'}, el))
+    res.devices = res.data.map(el => Object.assign({isOn: false}, el))
     commit('updateDevices', res.devices)
   }
 }
@@ -31,9 +31,14 @@ const mutations = {
     state.curItem.tasks.splice(index, 1)
   },
   refreshMeter (state, {index, data}) {
-    state.items[index].data = data
+    let obj = state.items[index]
+    obj.data = data
+    Vue.set(state.items, index, obj)
   },
-  switchDevice (state, {index, data}) {
+  switchDevice (state, {index, data, isOn}) {
+    let obj = state.items[index]
+    obj.state = data
+    obj.isOn = isOn
     state.items[index].state = data
   }
 }

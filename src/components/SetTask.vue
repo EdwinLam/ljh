@@ -36,9 +36,9 @@
   <div class="set-task">
     <div class="main-container">
     <group title="定时任务">
-      <cell :title="el.start" :value="el.name" v-for="(el,index) in tasks" :key="el.id">
+      <cell :title="el.name" v-for="(el,index) in tasks" :key="el.id">
         <slot>
-          {{el.action}}
+          {{el.start}}
           <i class="iconfont icon-shuaxin" v-if="el.repeat==='1'"></i>
         </slot>
         <slot name="child"> <span class="vux-close" @click="delTask(index)"></span></slot>
@@ -56,10 +56,11 @@
   import { mapState } from 'vuex'
 
   export default {
+    name: 'set-task',
     directives: {
       TransferDom
     },
-    activated () {
+    mounted () {
       this.getTasks()
       this.$store.commit('updateHeader', {title: '定时设置', isShowBack: true})
     },

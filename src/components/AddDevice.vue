@@ -86,6 +86,12 @@
         await DeviceApi.add({home_id: this.userInfo.home_id, device_id: this.device_id, device_name: this.device_name, device_type: this.device_type})
         CommonUtil.sucToast(this, '添加成功', 1000)
         await this.$store.dispatch('getDevices', {home_id: this.userInfo.home_id})
+        this.ssid = ''
+        this.password = ''
+        this.device_name = ''
+        this.device_id = ''
+        this.device_type = ''
+        this.device_description = ''
       },
       getDeviceConfig: function () {
         var ctx = this
