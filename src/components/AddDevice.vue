@@ -47,7 +47,7 @@
         <div slot="child" class="textBtn" @click="doRefreshWifi">刷新网络</div>
       </cell>
       <cell class="vux-tap-active weui-cell_acces">
-        <div slot="child" class="textBtn" @click="getDeviceConfig">配置网络</div>
+        <div slot="child" class="textBtn" @click="getDeviceConfig">获取设备信息</div>
       </cell>
       <cell class="vux-tap-active weui-cell_acces">
         <div slot="child" class="textBtn" @click="save">加入我的设备</div>

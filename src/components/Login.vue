@@ -68,7 +68,6 @@
     },
     data () {
       return {
-        userInfo: () => AuthUtil.getUserInfo(),
         phone: '',
         password: ''
       }
