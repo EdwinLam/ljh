@@ -47,7 +47,7 @@
         <div slot="child" class="textBtn" @click="doRefreshWifi">刷新网络</div>
       </cell>
       <cell class="vux-tap-active weui-cell_acces">
-        <div slot="child" class="textBtn" @click="getDeviceConfig">配置网络</div>
+        <div slot="child" class="textBtn" @click="getDeviceConfig">获取设备信息</div>
       </cell>
       <cell class="vux-tap-active weui-cell_acces">
         <div slot="child" class="textBtn" @click="save">加入我的设备</div>
@@ -85,16 +85,10 @@
         }
         await DeviceApi.add({home_id: this.userInfo.home_id, device_id: this.device_id, device_name: this.device_name, device_type: this.device_type})
         CommonUtil.sucToast(this, '添加成功', 1000)
-        await this.$store.dispatch('getDevices', {home_id: this.userInfo.home_id})
-        this.ssid = ''
-        this.password = ''
-        this.device_name = ''
-        this.device_id = ''
-        this.device_type = ''
-        this.device_description = ''
       },
       getDeviceConfig: function () {
         var ctx = this
+        
         if (this.ssid === '') {
           CommonUtil.warnToast(this, 'ssid不能为空')
           return
@@ -103,22 +97,32 @@
           CommonUtil.warnToast(this, 'ssid密码不能为空')
           return
         }
+        
+       
         this.$vux.confirm.show({
           // 组件除show外的属性
           async onCancel () {},
           async onConfirm () {
+          	
+          	
             CommonUtil.openLoading()
+            
+            
             setTimeout(() => {
               const msg = ctx.ssid + '&&' + ctx.password + '&&' + ctx.userInfo.home_id
+              
+              console.log(msg)
+              
               new UdpUtil().sendMsg({
                 msg,
                 callbackFunction: (data) => {
+                  console.log(data)
                   if (data != null) {
                     CommonUtil.sucToast(ctx, '配置设备成功', 1000)
                     const deviceInfo = JSON.parse(data)
                     ctx.device_id = deviceInfo.device_id
-                    ctx.device_type = deviceInfo.device_type
-                    ctx.device_description = deviceInfo.device_description
+                    ctx.device_type = deviceInfo.type
+                    ctx.device_description = deviceInfo.description
                   } else {
                     CommonUtil.errorToast(ctx, '配置设备失败，请检查网络', 1000)
                   }

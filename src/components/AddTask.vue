@@ -34,13 +34,13 @@
   </div>
 </template>
 <script>
-  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader, Popup, Datetime, TransferDom, Selector, CheckIcon, PopupPicker} from 'vux'
+  import {Swiper, Panel, Cell, Badge, Group, XButton, XSwitch, XInput, XHeader, Popup, Datetime, TransferDom, Selector, CheckIcon, PopupPicker } from 'vux'
+  import { mapState } from 'vuex'
   import {DeviceApi} from '../api'
   import {AuthUtil, CommonUtil} from '../utils'
   let deviceMap = {}
   export default {
-    name: 'add-task',
-    mounted () {
+    activated () {
       this.getDevices()
       this.resetParam()
       this.$store.commit('updateHeader', {title: '添加任务', isShowBack: true})
@@ -77,7 +77,19 @@
         this.addTaskEl.actions.splice(index, 1)
       },
       async saveTask () {
-        let postData = Object.assign({}, this.addTaskEl)
+        //let postData = Object.assign({}, this.addTaskEl)
+        let postData = {
+        	task_name:this.addTaskEl.task_name,
+        	start:this.addTaskEl.start,
+        	end:this.addTaskEl.end,
+        	repeat:this.addTaskEl.repeat ? '1' : '0',
+        	actions:this.addTaskEl.actions.map(el => {
+          	return {
+            	device_id: el.device_id,
+            	action: this.actionMap[el.action]
+          	}
+        	})
+        }
         if (postData.task_name === '') {
           CommonUtil.warnToast(this, '请输入任务名称')
           return
@@ -90,6 +102,7 @@
           CommonUtil.warnToast(this, '请添加设备动作')
           return
         }
+        /*
         postData.actions = postData.actions.map(el => {
           return {
             device_id: el.device_id,
@@ -97,6 +110,8 @@
           }
         })
         postData.repeat = this.addTaskEl.repeat ? '1' : '0'
+        */
+        
         CommonUtil.openLoading()
         try {
           await DeviceApi.addTask({
@@ -114,22 +129,29 @@
           CommonUtil.warnToast(this, '设备连接超时', 1000)
         }
 
-        this.resetParam()
+				this.resetParam
+        //this.resetParam.bind(this)()
       },
       resetParam () {
+      	
         this.addTaskEl = {
           task_name: '',
-          start: '08:00',
-          end: '08:30',
+          start: '8:00:00',
+          end: '8:30',
           repeat: false,
           actions: []
         }
+        
+       //this.addTaskEl.task_name = ''
+       //this.addTaskEl.start = '8:00:00'
+       
       }
 
     },
     computed: {
       userInfo: () => AuthUtil.getUserInfo()
     },
+    
     data () {
       return {
         actionMap: {
@@ -143,8 +165,8 @@
         selectedDevice: [],
         addTaskEl: {
           task_name: '',
-          start: '08:00',
-          end: '08:30',
+          start: '8:00:00',
+          end: '8:30',
           repeat: false,
           actions: []
         }

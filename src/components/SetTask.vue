@@ -36,9 +36,9 @@
   <div class="set-task">
     <div class="main-container">
     <group title="定时任务">
-      <cell :title="el.name" v-for="(el,index) in tasks" :key="el.id">
+      <cell :title="el.start" :value="el.name" v-for="(el,index) in tasks" :key="el.id">
         <slot>
-          {{el.start}}
+          {{el.action}}
           <i class="iconfont icon-shuaxin" v-if="el.repeat==='1'"></i>
         </slot>
         <slot name="child"> <span class="vux-close" @click="delTask(index)"></span></slot>
@@ -56,11 +56,10 @@
   import { mapState } from 'vuex'
 
   export default {
-    name: 'set-task',
     directives: {
       TransferDom
     },
-    mounted () {
+    activated () {
       this.getTasks()
       this.$store.commit('updateHeader', {title: '定时设置', isShowBack: true})
     },
@@ -74,6 +73,7 @@
       async getTasks () {
         const res = await DeviceApi.taskList({home_id: this.userInfo.home_id})
         this.tasks = res.tasks
+        
       },
       async delTask (index) {
         const el = this.tasks[index]
@@ -83,10 +83,11 @@
           async onCancel () {},
           async onConfirm () {
             CommonUtil.openLoading()
+            console.log(el.name)
             await DeviceApi.delTask({home_id: ctx.userInfo.home_id, task_name: el.name})
             CommonUtil.closeLoading()
-            ctx.tasks.splice(index, 1)
-            CommonUtil.sucToast(ctx, '删除成功', 1000)
+            this.$emit('delTask', index)
+            CommonUtil.sucToast(this, '删除成功', 1000)
           },
           title: '操作提示',
           content: '是否确定操作？'

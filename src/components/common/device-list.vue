@@ -84,7 +84,7 @@
             <p>额定电流: {{el.dl}}</p>
             <p>最大功率: {{el.gl}}</p>
             <p>无线网格: 802.11</p>
-            <p>自动配网:LJH smart lik</p>
+            <p>自动配网:LJH smart link</p>
             <span>协议:<badge text="LJHSL 1.0" class="protocol"></badge></span>
           </div>
         </div>

@@ -63,7 +63,7 @@
             <badge :text="el.name" class="device-name"></badge>
           </cell>
           <cell :title="'类型'" :value="el.type"></cell>
-          <x-switch title="开关状态" :inlineDesc="el.state|deviceState" class="switch-btn"  :disabled="!isCanEdit(el)" v-model="el.isOn" @on-change="switchDevice(index)">
+          <x-switch title="开关状态" :inlineDesc="el.state|deviceState" class="switch-btn" on-change="el.state" :disabled="!isCanEdit(el)" v-model="el.isOn" @on-change="switchDevice(index)">
           </x-switch>
           <cell title="电量(度)" :value="el.data"></cell>
           <cell title="定时设置" is-link @click.native="setTask(index)"></cell>
@@ -129,17 +129,23 @@
       },
       async getDevices () {
         CommonUtil.openLoading()
-        await this.$store.dispatch('getDevices', {home_id: this.userInfo.home_id})
+        const res = await DeviceApi.list({home_id: this.userInfo.home_id})
         CommonUtil.closeLoading()
+        res.devices = res.data.map(el => Object.assign({isOn: el.state === 'on'}, el))
+        this.$store.commit('updateDevices', res.devices)
       },
       async refreshMeter (index) {
         const el = this.devices[index]
         CommonUtil.openLoading()
         try {
+        	console.log(el.device_id)
           const res = await DeviceApi.meter({home_id: this.userInfo.home_id, device_id: el.device_id})
           CommonUtil.closeLoading()
+          
           if (CommonUtil.isSuccess(res.code)) {
-            this.$store.commit('refreshMeter', {data: res.data, index})
+            //this.$store.commit('refreshMeter', {data: res.data, index})
+            this.$store.commit('refreshMeter', {index,data:res.data})
+            
             CommonUtil.sucToast(this, '读取电量成功', 500)
           } else {
             CommonUtil.warnToast(res.msg)
@@ -150,16 +156,15 @@
         }
       },
       async switchDevice (index) {
-        if (this.isLoading) return
         const el = this.devices[index]
         CommonUtil.openLoading()
-        const res = await DeviceApi.switch({ home_id: this.userInfo.home_id, device_id: el.device_id, param: el.isOn ? 'off' : 'on' })
+        const res = await DeviceApi.switch({home_id: this.userInfo.home_id, device_id: el.device_id, param: el.isOn ? 'on' : 'off'})
         CommonUtil.closeLoading()
         if (CommonUtil.isSuccess(res.code)) {
-          this.$store.commit('switchDevice', {index, isOn: el.isOn})
+          this.$store.commit('switchDevice', {data: el.isOn ? 'on' : 'off', index})
           CommonUtil.sucToast(this, '设备' + el.name + '已切换成[' + (el.isOn ? '开' : '关') + ']状态', 500)
         } else {
-          CommonUtil.warnToast('开关设置失败', 500)
+          CommonUtil.warnToast(data)
         }
       },
       openTimeSet () {
@@ -167,13 +172,9 @@
       },
       loadMore () {},
       async refresh () {
-        const ctx = this
-        this.isLoading = true
         this.$nextTick(() => {
-          setTimeout(async() => {
-            await ctx.$store.dispatch('getDevices', {home_id: ctx.userInfo.home_id})
+          setTimeout(() => {
             this.$refs.scroller.donePulldown()
-            ctx.isLoading = false
           }, 10)
         })
       },
@@ -202,7 +203,6 @@
     },
     data () {
       return {
-        isLoading: false,
         fixHeight: '0',
         status: {
           pullupStatus: 'default',

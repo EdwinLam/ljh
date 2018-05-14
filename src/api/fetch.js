@@ -3,7 +3,8 @@ import { AjaxPlugin } from 'vux'
 // 创建axios实例
 const service = AjaxPlugin.$http.create({
   baseURL: 'http://wap.ljhlink.com', // api的base_url
-  timeout: 15000 // 请求超时时间
+  //baseURL: 'http://127.0.0.1:3000',
+  timeout: 5000 // 请求超时时间
 })
 
 

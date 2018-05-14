@@ -52,7 +52,7 @@
       <x-header slot="header" :title="title" :left-options="{showBack: isShowBack}" style="width:100%;position:absolute;left:0;top:0;z-index:100;"> <slot name="left"></slot>
       </x-header>
       <!--<transition :name="viewTransition" :css="!!direction">-->
-        <keep-alive exclude="add-task,set-task">
+        <keep-alive>
         <router-view class="router-view"></router-view>
         </keep-alive>
       <!--</transition>-->

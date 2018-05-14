@@ -52,9 +52,12 @@ const app = {
         } catch (e) {
           osName = ''
         }
+        
         switch (osName) {
           case 'Android':
+          	
             if (wifiManager === null) {
+            	
               const MainActivity = plus.android.runtimeMainActivity()
             // 上下文
               const Context = plus.android.importClass('android.content.Context')
@@ -67,19 +70,38 @@ const app = {
               wifiManager = MainActivity.getSystemService(Context.WIFI_SERVICE)
             }
             // 获取当前连接WIFI的信息
-            const resultList = wifiManager.getScanResults()
+            
             if (!wifiManager.isWifiEnabled()) {
               wifiManager.setWifiEnabled(true)
             }// 打开wifi,false为关闭
+            
+            let wifiInfo = wifiManager.getConnectionInfo()
+            let ssid = wifiInfo.getSSID()
+        		ssid = ssid.replace(/(^\"*)|(\"*$)/g, "")
+            
+            //startScan 是异步的
+            /*
             wifiManager.startScan()// 开始扫描
+            /
+            const resultList = wifiManager.getScanResults()
+            
             const len = resultList.size()
-            let tmpItems = []
+            
+            console.log(len)
+
+						let tmpItems = []
             for (let i = 0; i < len; i++) {
               let ssid = resultList.get(i).plusGetAttribute('SSID')
               if (ssid && ssid !== '') {
                 tmpItems.push({key: ssid, value: ssid})
+                
+                //////
+               
               }
             }
+            */
+            let tmpItems = []
+            tmpItems.push({key: ssid, value: ssid})
             commit('updateWifiItems', tmpItems)
             break
           case 'iOS':
