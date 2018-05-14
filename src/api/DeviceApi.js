@@ -27,7 +27,7 @@ export default class AuthApi {
     return fetch.post('/api/v1/device/meters', qs.stringify(data))
   }
   static taskList ({home_id}) {
-    const data = {home_id}
+    const data = {home_id, t: new Date().getTime()}
     return fetch.post('/api/v1/task/list', qs.stringify(data))
   }
   static addTask ({home_id, task_name, start, end, repeat, actions}) {

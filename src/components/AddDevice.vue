@@ -117,8 +117,8 @@
                     CommonUtil.sucToast(ctx, '配置设备成功', 1000)
                     const deviceInfo = JSON.parse(data)
                     ctx.device_id = deviceInfo.device_id
-                    ctx.device_type = deviceInfo.device_type
-                    ctx.device_description = deviceInfo.device_description
+                    ctx.device_type = deviceInfo.type
+                    ctx.device_description = deviceInfo.description
                   } else {
                     CommonUtil.errorToast(ctx, '配置设备失败，请检查网络', 1000)
                   }

@@ -60,6 +60,10 @@
     directives: {
       TransferDom
     },
+    activated () {
+      this.getTasks()
+      this.$store.commit('updateHeader', {title: '定时设置', isShowBack: true})
+    },
     mounted () {
       this.getTasks()
       this.$store.commit('updateHeader', {title: '定时设置', isShowBack: true})
@@ -72,8 +76,10 @@
         this.$router.push({name: 'AddTask'})
       },
       async getTasks () {
+        CommonUtil.openLoading()
         const res = await DeviceApi.taskList({home_id: this.userInfo.home_id})
         this.tasks = res.tasks
+        CommonUtil.closeLoading()
       },
       async delTask (index) {
         const el = this.tasks[index]

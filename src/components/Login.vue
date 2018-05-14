@@ -27,7 +27,8 @@
 <script>
   import {XInput, XButton, Group, Flexbox, FlexboxItem} from 'vux'
   import {AuthApi} from '../api'
-  import {CommonUtil} from '../utils'
+  import {CommonUtil, AuthUtil} from '../utils'
+
   export default {
     components: {
       XInput,
@@ -52,6 +53,7 @@
             data: res.data
           })
           CommonUtil.sucToast(this, '登录成功', 1000)
+          await this.$store.dispatch('getDevices', {home_id: this.userInfo.home_id})
           this.$router.push({name: 'Index'})
         } else {
           CommonUtil.warnToast(this, res.msg)
@@ -66,6 +68,7 @@
     },
     data () {
       return {
+        userInfo: () => AuthUtil.getUserInfo(),
         phone: '',
         password: ''
       }
