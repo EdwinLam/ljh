@@ -53,7 +53,7 @@
             data: res.data
           })
           CommonUtil.sucToast(this, '登录成功', 1000)
-          await this.$store.dispatch('getDevices', {home_id: this.userInfo.home_id})
+          await this.$store.dispatch('getDevices', {home_id: res.data.home_id})
           this.$router.push({name: 'Index'})
         } else {
           CommonUtil.warnToast(this, res.msg)
