@@ -133,8 +133,8 @@
     data () {
       return {
         actionMap: {
-          '打开': 'on',
-          '关闭': 'off',
+          '打开': 'off',
+          '关闭': 'on',
           '获取电量': 'data'
         },
         devices: [],
